@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.mapper.HotSearchMapper">
+
+
+    <select id="getWeiboDates"  resultType="common.pojo.WeiboData">
+        select * from WEIBO_DATA
+        where 18644614>rownum
+        --where trunc(INSERT_TIME)>trunc(sysdate)-1
+    </select>
+
+
+    <select id="getWeiboDatesBySplitPage" parameterType="int" resultType="common.pojo.WeiboData">
+        select * from WEIBO_DATA
+         where #{index}+1000>rownum and rownum>#{index}
+        --where trunc(INSERT_TIME)>trunc(sysdate)-1
+    </select>
+
+
+    <resultMap id="BbsResultMap" type="common.pojo.BbsData" >
+        <id column="ID" 				            property="ID"  jdbcType="INTEGER" />
+
+        <result column="ID"		property="ID"					jdbcType="INTEGER" />
+        <result column="TITLE"		property="TITLE"				jdbcType="VARCHAR" />
+        <result column="AUTHOR"		property="AUTHOR"				jdbcType="VARCHAR" />
+        <result column="SITE_ID"	property="SITE_ID"				jdbcType="INTEGER" />
+        <result column="PUBTIME"	property="PUBTIME"				jdbcType="TIMESTAMP" />
+        <result column="URL"		property="URL"					jdbcType="VARCHAR" />
+        <result column="SEARCH_KEYWORD"		property="SEARCH_KEYWORD"		jdbcType="VARCHAR" />
+        <result column="COMMENT_COUNT"		property="COMMENT_COUNT"		jdbcType="INTEGER" />
+        <result column="CLICK_COUNT"		property="CLICK_COUNT"			jdbcType="INTEGER" />
+        <result column="CATEGORY_CODE"		property="CATEGORY_CODE"		jdbcType="VARCHAR" />
+        <result column="INSERT_TIME"		property="INSERT_TIME"			jdbcType="TIMESTAMP" />
+        <result column="MD5"			property="MD5"				jdbcType="VARCHAR" />
+        <result column="CONTENT"		property="CONTENT"			jdbcType="VARCHAR" />
+        <result column="BRIEF"			property="BRIEF"			jdbcType="VARCHAR" />
+        <result column="IMG_URL"		property="IMG_URL"			jdbcType="VARCHAR" />
+        <result column="RELIABILITY"		property="RELIABILITY"			jdbcType="INTEGER" />
+        <result column="SOURCE"			property="SOURCE"			jdbcType="VARCHAR" />
+        <result column="OLD_ID"			property="OLD_ID"			jdbcType="INTEGER" />
+
+
+    </resultMap>
+
+    <select id="getBbsDates"  resultMap="BbsResultMap">
+        select * from BBS_DATA
+        where  2362408>rownum
+    </select>
+    <select id="getBbsDatesBySplitPage"  parameterType="int" resultMap="BbsResultMap">
+        select * from BBS_DATA
+         where #{index}+1000>rownum and rownum>#{index}
+
+    </select>
+
+
+    <resultMap id="NewsResultMap" type="common.pojo.NewsData" >
+        <id column="ID" 				            property="ID"  jdbcType="INTEGER" />
+
+        <result column="ID"		property="ID"					jdbcType="INTEGER" />
+        <result column="TITLE"		property="TITLE"				jdbcType="VARCHAR" />
+        <result column="AUTHOR"		property="AUTHOR"				jdbcType="VARCHAR" />
+        <result column="SITE_ID"	property="SITE_ID"				jdbcType="INTEGER" />
+        <result column="PUBTIME"	property="PUBTIME"				jdbcType="TIMESTAMP" />
+        <result column="URL"		property="URL"					jdbcType="VARCHAR" />
+        <result column="SEARCH_KEYWORD"		property="SEARCH_KEYWORD"		jdbcType="VARCHAR" />
+        <result column="SOURCE"			property="SOURCE"			jdbcType="VARCHAR" />
+        <result column="CATEGORY_CODE"		property="CATEGORY_CODE"		jdbcType="VARCHAR" />
+        <result column="INSERTTIME"		property="INSERTTIME"			jdbcType="TIMESTAMP" />
+        <result column="MD5"			property="MD5"				jdbcType="VARCHAR" />
+        <result column="CONTENT"		property="CONTENT"			jdbcType="VARCHAR" />
+        <result column="BRIEF"			property="BRIEF"			jdbcType="VARCHAR" />
+        <result column="IMG_URL"		property="IMG_URL"			jdbcType="VARCHAR" />
+        <result column="SAME_NUM"		property="SAME_NUM"			jdbcType="VARCHAR" />
+        <result column="SAME_URL"		property="SAME_URL"			jdbcType="INTEGER" />
+        <result column="OLD_ID"			property="OLD_ID"			jdbcType="INTEGER" />
+
+
+    </resultMap>
+
+
+    <select id="getNewsDates"  resultMap="NewsResultMap">
+        select * from NEWS_DATA
+        where 10899>rownum
+
+    </select>
+
+    <select id="getNewsDatesBySplitPage"  parameterType="int" resultMap="NewsResultMap">
+        select * from NEWS_DATA
+        where #{index}+1000>rownum and rownum>#{index}
+
+    </select>
+
+</mapper>

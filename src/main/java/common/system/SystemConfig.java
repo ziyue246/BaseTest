@@ -1,46 +1,22 @@
 package common.system;
 
-public class SystemConfig {
+import common.service.HotSearchService;
 
 
-    private static String runModel;
-    private static boolean crawlImage = false;
+public class Systemconfig {
 
-    private static boolean httpMark = true;
 
-    public static void setHttpMark(boolean httpMark) {
-        synchronized (SystemConfig.class) {
-            SystemConfig.httpMark = httpMark;
-        }
+    public static HotSearchService hotSearchService;
+    public void initial(){
+
     }
 
-    public static boolean isHttpMark() {
-        synchronized (SystemConfig.class) {
-            return httpMark;
-        }
+
+    public HotSearchService getHotSearchService() {
+        return hotSearchService;
     }
 
-    public static void setCrawlImage(boolean crawlerImage) {
-        synchronized (SystemConfig.class){
-            SystemConfig.crawlImage = crawlerImage;
-        }
-    }
-
-    public static void setRunModel(String runModel) {
-        synchronized (SystemConfig.class) {
-            SystemConfig.runModel = runModel;
-        }
-    }
-
-    public static String getRunModel() {
-        synchronized (SystemConfig.class) {
-            return runModel;
-        }
-    }
-
-    public static boolean isCrawlImage() {
-        synchronized (SystemConfig.class){
-            return crawlImage;
-        }
+    public void setHotSearchService(HotSearchService hotSearchService) {
+        Systemconfig.hotSearchService = hotSearchService;
     }
 }
