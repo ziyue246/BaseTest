@@ -22,9 +22,9 @@ public class PaperVosViewOneByOne {
     public void getnetWork(){
 
 
-        String postfix="3";
+        String postfix="";
 
-        String path="file/vos/data/patent/paper/dataSrc"+postfix;
+        String path="file/vos/data/patent/paper/manual/dataSrc"+postfix;
         String []lines = FileOperation.read(path).split("\n");
 
 
@@ -58,7 +58,7 @@ public class PaperVosViewOneByOne {
             }
         }
 
-        path = "file/vos/data/patent/paper/network_sparse"+postfix+".txt";
+        path = "file/vos/data/patent/paper/manual/network_sparse"+postfix+".txt";
         FileOperation.delete(path);
         for(PatentData data:patentDataList){
             Set<Integer> relationSet  = data.getRelationMap().keySet();
