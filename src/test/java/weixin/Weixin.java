@@ -96,4 +96,13 @@ public class Weixin {
     public void test(){
         String a1="https://mp.weixin.qq.com/s?src=3&timestamp=1511504033&ver=1&signature=dwjgjYq3hpTBjIPC3YqpLCPdz3aw6vrQDl3bbA5svGCMXVk1T0BlRgW5IXYF8-nmh9oJbnlEiWuxo1JAkcTyFYJZSEeT5NZ4-Qtn-B46M7cR0iLQQLtRuxH2CwtO5OlYQ-BHzrzzx-T4vPrqDhccxFHEgcA4Va7FSvwJkZ--m0Q=&key=32b31719e59e4223e2fd8338d1a70953b544a9954f6a1c1a65920f5fc79512d6422c19dddbc8b4ce8b9f35b7e036156ad49bdfb4f3a87acfad1ac5d4a9ba3881d0569a6b6c83632e2bb75b8f7e134d2b&ascene=1&uin=MTU4MTM4MzI2Mg%3D%3D&d";
     }
+
+
+    @Test
+    public void test11111(){
+
+        String str="##@@##@@##@@";
+        FileOperation.appendWrite("file/hotSearch/bbs.txt", str);
+
+    }
 }

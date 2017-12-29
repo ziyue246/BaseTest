@@ -15,7 +15,12 @@
 
     <select id="getWeiboDatesBySplitPage" parameterType="int" resultType="common.pojo.WeiboData">
         select * from WEIBO_DATA
-         where #{index}+1000>rownum and rownum>#{index}
+         where #{index}+10000>rownum and rownum>#{index}
+        --where trunc(INSERT_TIME)>trunc(sysdate)-1
+    </select>
+    <select id="getWeiboDatesByIdSplitPage" parameterType="int" resultType="common.pojo.WeiboData">
+        select * from WEIBO_DATA
+        where #{index}+10000>id and id>#{index}
         --where trunc(INSERT_TIME)>trunc(sysdate)-1
     </select>
 
@@ -51,10 +56,14 @@
     </select>
     <select id="getBbsDatesBySplitPage"  parameterType="int" resultMap="BbsResultMap">
         select * from BBS_DATA
-         where #{index}+1000>rownum and rownum>#{index}
+         where #{index}+10000>rownum and rownum>#{index}
 
     </select>
+    <select id="getBbsDatesByIdSplitPage"  parameterType="int" resultMap="BbsResultMap">
+        select * from BBS_DATA
+        where #{index}+10000>id and id>#{index}
 
+    </select>
 
     <resultMap id="NewsResultMap" type="common.pojo.NewsData" >
         <id column="ID" 				            property="ID"  jdbcType="INTEGER" />
@@ -89,7 +98,12 @@
 
     <select id="getNewsDatesBySplitPage"  parameterType="int" resultMap="NewsResultMap">
         select * from NEWS_DATA
-        where #{index}+1000>rownum and rownum>#{index}
+        where #{index}+10000>rownum and rownum>#{index}
+
+    </select>
+    <select id="getNewsDatesByIdSplitPage"  parameterType="int" resultMap="NewsResultMap">
+        select * from NEWS_DATA
+        where #{index}+10000>id and id>#{index}
 
     </select>
 

@@ -19,7 +19,9 @@ public interface HotSearchMapper {
     public List<WeiboData> getWeiboDatesBySplitPage(int index);
     public List<NewsData> getNewsDatesBySplitPage(int index);
     public List<BbsData> getBbsDatesBySplitPage(int index);
-
+    public List<WeiboData> getWeiboDatesByIdSplitPage(int index);
+    public List<NewsData> getNewsDatesByIdSplitPage(int index);
+    public List<BbsData> getBbsDatesByIdSplitPage(int index);
 
 
 

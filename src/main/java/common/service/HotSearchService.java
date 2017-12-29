@@ -39,5 +39,14 @@ public class HotSearchService {
     public List<BbsData> getBbsDatesBySplitPage(int index){
         return hotSearchMapper.getBbsDatesBySplitPage(index);
     }
+    public List<WeiboData> getWeiboDatesByIdSplitPage(int index ){
+        return hotSearchMapper.getWeiboDatesByIdSplitPage(index );
+    }
+    public List<NewsData> getNewsDatesByIdSplitPage(int index){
+        return hotSearchMapper.getNewsDatesByIdSplitPage(index);
+    }
+    public List<BbsData> getBbsDatesByIdSplitPage(int index){
+        return hotSearchMapper.getBbsDatesByIdSplitPage(index);
+    }
 
 }
