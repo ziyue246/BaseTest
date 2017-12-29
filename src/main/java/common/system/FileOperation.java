@@ -94,6 +94,14 @@ public class FileOperation {
             return false;
         }
     }
+
+    public static void delete(String fileName) {
+        synchronized(FileOperation.class) {
+            if ((new File(fileName).exists())) {
+                (new File(fileName)).delete();
+            }
+        }
+    }
 	public static void write(String content,String file) {
         synchronized(FileOperation.class) {
             BufferedOutputStream Buff = null;
