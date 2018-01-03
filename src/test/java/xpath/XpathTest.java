@@ -1,5 +1,7 @@
 package xpath;
 
+import common.http.HtmlInfo;
+import common.http.SimpleHttp;
 import common.system.FileOperation;
 import common.utils.DomTree;
 import org.junit.Test;
@@ -19,8 +21,8 @@ public class XpathTest {
 				result = result.replaceAll("\t", "");
 			while (result.indexOf("  ")!=-1)
 				result = result.replaceAll("  ", " ");
-			while (result.indexOf("閵嗭拷")!=-1)
-				result = result.replaceAll("閵嗭拷", "");
+			while (result.indexOf("銆?")!=-1)
+				result = result.replaceAll("銆?", "");
 			return result.trim();
 		}
 		return "";
@@ -78,8 +80,8 @@ public class XpathTest {
 	    	String result = DomTree.parserNodeByXpathGetString(node, xpath2);
 	    	System.out.println(result);
 	    	if(result.contains("-")){
-		    	String time  = result.split("...聽-")[1];
-		    	time = time.replace("聽", "");
+		    	String time  = result.split("...?-")[1];
+		    	time = time.replace("?", "");
 		    	System.out.println(time.trim());
 	    	}
 	    }
@@ -105,8 +107,8 @@ public class XpathTest {
 	    	String result = DomTree.parserNodeByXpathGetString(node, xpath2);
 	    	System.out.println(result);
 	    	if(result.contains("-")){
-		    	String time  = result.split("...聽-")[1];
-		    	time = time.replace("聽", "");
+		    	String time  = result.split("...?-")[1];
+		    	time = time.replace("?", "");
 		    	System.out.println(time.trim());
 	    	}
 	    }
@@ -182,7 +184,7 @@ public class XpathTest {
 		String xpath = "//DIV[@class='fb']/CITE[contains(@id,'cacheresult_info_')]";
 	    
 	//<p style="text-align: right;">  <div class="c-span18 c-span-last">
-		xpath= "//DIV[@class='result'][@id='<index>']//SPAN[@class='c-info']/A[contains(.,'鏌ョ湅鏇村鐩稿叧鏂伴椈')]/@href";
+		xpath= "//DIV[@class='result'][@id='<index>']//SPAN[@class='c-info']/A[contains(.,'查看更多相关新闻')]/@href";
 			
 		
 		
@@ -238,5 +240,46 @@ public class XpathTest {
 	    
 		result = DomTree.parserNodeByXpathGetIndexContent(node, xpath,0);
 		System.out.println(result);
-	}	
+	}
+
+
+
+
+
+
+	@Test
+	public void testMian_jinritoutiao(){
+//		HtmlInfo html = new HtmlInfo();
+//		SimpleHttp http = new SimpleHttp();
+//
+//		String url = "http://weixin.sogou.com/weixin?query=%E9%9D%92%E5%B2%9B%E6%97%A9%E6%8A%A5&type=1";
+//
+//		url="https://www.toutiao.com/a6504509766524469773/";
+//		html.setOrignUrl(url);
+//
+//		String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36";
+//		html.setUa(ua);
+//
+//		http.simpleGet(html);
+
+		String path  = "C:/Users/ziyue02/Desktop/123.html.txt";
+		String content = FileOperation.read(path);
+		//System.out.println(content);
+		//System.out.println("测试中文");
+//
+//		//String content = html.getContent();
+
+		//article-content
+		String xpathContent = "//DIV[contains(@class,'content')]//P|"
+				+ "//ARTICLE//P|//DIV[contains(@id,'ext')]//P|" + "//FIGURE/FIGCAPTION";
+		DocumentFragment node = DomTree.getNode(content, "utf-8");
+
+		String xpath = xpathContent;//"//DIV/P";
+
+		NodeList nl = DomTree.commonList(xpath, node);
+		for(int i=0;i<nl.getLength();i++){
+			System.out.println(nl.item(i).getTextContent());
+		}
+
+	}
 }
