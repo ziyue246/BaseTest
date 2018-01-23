@@ -33,10 +33,19 @@
         <property name="hotSearchMapper" ref="hotSearchMapper"/>
     </bean>
 
+    <bean id="commonMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="common.mapper.CommonMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="commonService" class="common.service.CommonService">
+        <property name="commonMapper" ref="commonMapper"/>
+    </bean>
 
 
     <bean id="systemconfig" class="common.system.Systemconfig" init-method="initial">
         <property name="hotSearchService" ref="hotSearchService"/>
+
+        <property name="commonService" ref="commonService"/>
     </bean>
 
 </beans>

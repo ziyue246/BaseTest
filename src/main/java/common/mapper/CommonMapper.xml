@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.mapper.CommonMapper">
+
+
+    <select id="testExecuteTime"   resultType="String">
+
+
+
+SELECT *
+FROM (
+	SELECT group_id, g.`name`, introduction, tt.institution_id, paper_id
+		, latestpaperCount, latestsci, latestei, latestcnki
+		, COUNT(DISTINCT paper_id) AS paperCount
+		, SUM(IFNULL(in_sci, 0)) AS sci
+		, SUM(IFNULL(in_ei, 0)) AS ei
+		, SUM(IFNULL(in_cnki, 0)) AS cnki
+		, SUM(IFNULL(sci_refer, 0)) AS sciRefer
+		, SUM(IFNULL(ei_refer, 0)) AS eiRefer
+		, SUM(IFNULL(cnki_refer, 0)) AS cnkiRefer
+		, SUM(IFNULL(sci_refer, 0)) + SUM(IFNULL(ei_refer, 0)) + SUM(IFNULL(cnki_refer, 0)) AS referCount
+	FROM (
+		SELECT t.group_id, t.institution_id, ai.author_id, paper_id, latestpaperCount
+			, latestsci, latestei, latestcnki
+		FROM (
+			SELECT group_id, ai.institution_id AS institution_id, COUNT(DISTINCT ai.author_id) AS authorCount
+				, COUNT(*) AS latestpaperCount
+				, SUM(IFNULL(in_sci, 0)) AS latestsci
+				, SUM(IFNULL(in_ei, 0)) AS latestei
+				, SUM(IFNULL(in_cnki, 0)) AS latestcnki
+			FROM author_institution ai, paper_author_institution pai, paper p
+			WHERE pai.institution_id = 1
+				AND ai.institution_id = pai.institution_id
+				AND ai.author_id = pai.author_id
+				AND pai.paper_id = p.id
+				AND DATE_FORMAT(p.pubdate, '%Y%m%d') >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 90 DAY), '%Y%m%d')
+			GROUP BY group_id
+			ORDER BY latestpaperCount DESC
+			LIMIT 6
+		) t left join author_institution ai on ai.group_id = t.group_id
+			left join paper_author_institution pai on ai.institution_id = pai.institution_id
+		WHERE ai.institution_id = 1
+			AND ai.group_id = t.group_id
+			AND ai.institution_id = pai.institution_id
+			AND ai.author_id = pai.author_id
+		GROUP BY t.group_id, paper_id
+	) tt left join `group` g on  tt.group_id = g.id  left join  paper p on tt.paper_id = p.id
+	WHERE tt.group_id = g.id
+		AND tt.paper_id = p.id
+	GROUP BY tt.group_id
+	ORDER BY latestpaperCount DESC
+) temp_table left join  author_institution ai on temp_table.group_id = ai.group_id
+  left join  author a on a.id=ai.author_id
+WHERE ai.institution_id = 1
+	AND temp_table.group_id = ai.group_id;
+
+
+    </select>
+
+    <select id="getNames" resultType="String" >
+        select zh_first_name from author
+    </select>
+</mapper>
