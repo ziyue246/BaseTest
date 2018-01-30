@@ -1,31 +1,27 @@
 package common.testMain;
 
-import common.pojo.BbsData;
 import common.pojo.NameTest;
-import common.pojo.NewsData;
-import common.pojo.WeiboData;
 import common.system.AppContext;
-import common.system.FileOperation;
 import common.system.Systemconfig;
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.TestName;
-
-import java.util.List;
 
 /**
  * Created by ziyue on 2017/12/20.
  */
-public class GetMysqlDateTest {
+public class MysqlTest {
 
-    private static Logger logger = Logger.getLogger(GetMysqlDateTest.class);
+    private static Logger logger = Logger.getLogger(MysqlTest.class);
 
+
+    @Before
+    public void start(){
+        AppContext.initial();
+    }
 
     @Test
     public void testMainIdMethod() throws Exception{
-
-        AppContext.initial();
-
 
         System.out.println(Systemconfig.commonService.getNames());
     }
@@ -35,17 +31,20 @@ public class GetMysqlDateTest {
     @Test
     public void testMainIdMethodExecuteTime() throws Exception{
 
-        AppContext.initial();
+
 
         Long mtime = Systemconfig.commonService.testExecuteTime();
         System.out.println(mtime);
         System.out.println(mtime/1000.0);
     }
 
+
+
+
     @Test
     public void testInsertUpdateId() throws Exception{
 
-        AppContext.initial();
+
 
         NameTest name = new NameTest();
 

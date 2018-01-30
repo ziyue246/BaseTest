@@ -14,9 +14,9 @@ import java.util.List;
 /**
  * Created by ziyue on 2017/12/20.
  */
-public class GetDateTest {
+public class OracleTest {
 
-    private static Logger logger = Logger.getLogger(GetDateTest.class);
+    private static Logger logger = Logger.getLogger(OracleTest.class);
 
 
     @Test
