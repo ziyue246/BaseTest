@@ -49,7 +49,7 @@ public class GetMysqlDateTest {
 
         NameTest name = new NameTest();
 
-        name.setName("уехЩ");
+        name.setName("уткд");
         Systemconfig.commonService.testInsertUpdateId(name);
         System.out.println(name);
     }

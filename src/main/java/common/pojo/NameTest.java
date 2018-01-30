@@ -5,15 +5,17 @@ package common.pojo;
  */
 public class NameTest {
 
-    int id;
-    String name;
+    private  InsideId insideId;
+    private String name;
 
-    public int getId() {
-        return id;
+
+
+    public InsideId getInsideId() {
+        return insideId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setInsideId(InsideId insideId) {
+        this.insideId = insideId;
     }
 
     public String getName() {
@@ -28,8 +30,29 @@ public class NameTest {
     @Override
     public String toString() {
         return "NameTest{" +
-                "\nid=" + id +
-                ",\nname='" + name + '\'' +
+                "\ninsideId=" + insideId +
+                ",\n name='" + name + '\'' +
+                '}';
+    }
+}
+
+
+
+class InsideId {
+    public int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "InsideId{" +
+                "id=" + id +
                 '}';
     }
 }

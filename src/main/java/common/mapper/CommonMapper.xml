@@ -68,7 +68,7 @@ WHERE ai.institution_id = 1
 
 
 
-	<insert id ="testInsertUpdateId" useGeneratedKeys="true" keyProperty="id"
+	<insert id ="testInsertUpdateId" useGeneratedKeys="true" keyProperty="insideId.id"
 			parameterType="common.pojo.NameTest">
 
 		insert into test(name) values(#{name})
