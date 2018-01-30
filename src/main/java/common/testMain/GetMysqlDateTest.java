@@ -1,6 +1,7 @@
 package common.testMain;
 
 import common.pojo.BbsData;
+import common.pojo.NameTest;
 import common.pojo.NewsData;
 import common.pojo.WeiboData;
 import common.system.AppContext;
@@ -8,6 +9,7 @@ import common.system.FileOperation;
 import common.system.Systemconfig;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 import java.util.List;
 
@@ -38,6 +40,18 @@ public class GetMysqlDateTest {
         Long mtime = Systemconfig.commonService.testExecuteTime();
         System.out.println(mtime);
         System.out.println(mtime/1000.0);
+    }
+
+    @Test
+    public void testInsertUpdateId() throws Exception{
+
+        AppContext.initial();
+
+        NameTest name = new NameTest();
+
+        name.setName("ÕÅÈý");
+        Systemconfig.commonService.testInsertUpdateId(name);
+        System.out.println(name);
     }
 //    46073505
 //    6360997

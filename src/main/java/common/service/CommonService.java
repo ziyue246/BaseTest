@@ -3,6 +3,7 @@ package common.service;
 import common.mapper.CommonMapper;
 import common.mapper.HotSearchMapper;
 import common.pojo.BbsData;
+import common.pojo.NameTest;
 import common.pojo.NewsData;
 import common.pojo.WeiboData;
 import common.system.Systemconfig;
@@ -34,5 +35,9 @@ public class CommonService {
 
     public List<String> getNames(){
         return commonMapper.getNames();
+    }
+
+    public void testInsertUpdateId(NameTest name){
+        commonMapper.testInsertUpdateId(name);
     }
 }

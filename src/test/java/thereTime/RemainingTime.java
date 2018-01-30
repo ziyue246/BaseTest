@@ -18,22 +18,22 @@ public class RemainingTime {
 		long betweenDays = (long)((endDate.getTime() - 
 				startDate.getTime()) / (1000 * 60 * 60 *24) + 0.5); 
 		
-		System.out.println("开始时间 :"+startDate.toLocaleString().toString());
-		System.out.println("结束时间 :"+endDate.toLocaleString().toString());
-		System.out.println("总天数     :"+betweenDays);
+		System.out.println("start time :"+startDate.toLocaleString().toString());
+		System.out.println("end time   :"+endDate.toLocaleString().toString());
+		System.out.println("all time   :"+betweenDays);
 		
-		System.out.println("现在时间  :"+nowDate.toLocaleString());
+		System.out.println("now time   :"+nowDate.toLocaleString());
 		long remDays = (long)((endDate.getTime() - 
 				nowDate.getTime()) / (1000 * 60 * 60 *24) + 0.5); 
 		
-		System.out.println("工作天数  :"+(betweenDays-remDays));
+		System.out.println("work day   :"+(betweenDays-remDays));
 		
-		System.out.println("剩余天数   :"+remDays);
-		System.out.println("剩余周数   :"+remDays/7.0);
-		System.out.println("剩余月数   :"+remDays/30.0);
+		System.out.println("rem days   :"+remDays);
+		System.out.println("rem weeks  :"+remDays/7.0);
+		System.out.println("rem months :"+remDays/30.0);
 		
-		System.out.println("剩余年数   :"+remDays/365.0);
-		System.out.println("剩余比例   :"+1.0*remDays/betweenDays);
+		System.out.println("rem years  :"+remDays/365.0);
+		System.out.println("rem rate   :"+1.0*remDays/betweenDays);
 	}
 
 }

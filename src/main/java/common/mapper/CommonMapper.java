@@ -1,6 +1,7 @@
 package common.mapper;
 
 import common.pojo.BbsData;
+import common.pojo.NameTest;
 import common.pojo.NewsData;
 import common.pojo.WeiboData;
 
@@ -14,5 +15,7 @@ public interface CommonMapper {
     public List<String> testExecuteTime();
 
     public List<String> getNames();
+
+    public void testInsertUpdateId(NameTest name);
 
 }

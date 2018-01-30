@@ -63,4 +63,15 @@ WHERE ai.institution_id = 1
     <select id="getNames" resultType="String" >
         select zh_first_name from author
     </select>
+
+
+
+
+
+	<insert id ="testInsertUpdateId" useGeneratedKeys="true" keyProperty="id"
+			parameterType="common.pojo.NameTest">
+
+		insert into test(name) values(#{name})
+
+	</insert>
 </mapper>
