@@ -254,7 +254,7 @@ public class XpathTest {
 //
 //		String url = "http://weixin.sogou.com/weixin?query=%E9%9D%92%E5%B2%9B%E6%97%A9%E6%8A%A5&type=1";
 //
-//		url="https://www.toutiao.com/a6504509766524469773/";
+//		url="http://club.xihaiannews.com/forum-58-1.html";
 //		html.setOrignUrl(url);
 //
 //		String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36";
@@ -262,8 +262,10 @@ public class XpathTest {
 //
 //		http.simpleGet(html);
 
-		String path  = "C:/Users/ziyue02/Desktop/123.html.txt";
+		String path  = "C:/Users/Administrator/Desktop/2.html";
 		String content = FileOperation.read(path);
+
+		//content = html.getContent();
 		//System.out.println(content);
 		//System.out.println("测试中文");
 //
@@ -273,12 +275,24 @@ public class XpathTest {
 		String xpathContent = "//DIV[contains(@class,'content')]//P|"
 				+ "//ARTICLE//P|//DIV[contains(@id,'ext')]//P|" + "//FIGURE/FIGCAPTION";
 		DocumentFragment node = DomTree.getNode(content, "utf-8");
+			//class="s xst"
+		String xpath = "//TBODY/TR//TH//A[@class='s xst']/@href";//"//DIV/P";
 
-		String xpath = xpathContent;//"//DIV/P";
+		xpath = "//TBODY[1]/TR//TH//A[@class='s xst']";//"//DIV/P";
+
+		//xpath = "//SPAN[@id='fd_page_bottom']//DIV[@class='pg']//A[@class='nxt']/@href";
+
+
+		xpath="//DIV[@class='pi']/DIV[@class='authi']/A[@class='xw1']";
+
+
+		xpath = "//TITLE";
+
+		xpath="//A[contains(.,'下一页')]/@href";
 
 		NodeList nl = DomTree.commonList(xpath, node);
 		for(int i=0;i<nl.getLength();i++){
-			System.out.println(nl.item(i).getTextContent());
+			System.out.println((i+1)+":"+nl.item(i).getTextContent());
 		}
 
 	}
