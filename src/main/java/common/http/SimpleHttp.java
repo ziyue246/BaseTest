@@ -353,7 +353,8 @@ public class SimpleHttp {
 				}
 			}
 		} catch (Exception e) {
-			logger.trace(e);
+			e.printStackTrace();
+			logger.warn(e.getMessage());
 		}
 		// 创建请求响应的可关闭对象（手动关闭）
 		HttpResponse response = null;
@@ -403,7 +404,7 @@ public class SimpleHttp {
 					//获取http 请求的内容，并指定编码格式
 					result = EntityUtils.toString(httpEntity, html.getEncode());
 				} catch (Exception e) {
-					logger.trace(e);
+					logger.warn(e);
 				}
 				response.getEntity().getContent().close();
 				//记录http get请求获得的内容
@@ -411,11 +412,11 @@ public class SimpleHttp {
 			}
 			logger.trace("after if (response != null && response.getStatusLine().getStatusCode() == 200) {");
 		} catch(HttpHostConnectException e)	{
-			logger.trace("get : " + e.getMessage() + "  \t  代理问题，连接超时:"+html.getProxy());
-			logger.trace(e);
+			logger.warn("get : " + e.getMessage() + "  \t  代理问题，连接超时:"+html.getProxy());
+			logger.warn(e);
 		}catch(ClientProtocolException e)	{
-			logger.trace("get : " + e.getMessage() + "  \t  代理问题，连接超时:"+html.getProxy());
-			logger.trace(e);
+			logger.warn("get : " + e.getMessage() + "  \t  代理问题，连接超时:"+html.getProxy());
+			logger.warn(e);
 		}
 
 		catch(Exception e)		{

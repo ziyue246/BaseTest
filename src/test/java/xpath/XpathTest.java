@@ -274,24 +274,27 @@ public class XpathTest {
 		//article-content
 		String xpathContent = "//DIV[contains(@class,'content')]//P|"
 				+ "//ARTICLE//P|//DIV[contains(@id,'ext')]//P|" + "//FIGURE/FIGCAPTION";
-		DocumentFragment node = DomTree.getNode(content, "utf-8");
+		DocumentFragment node = DomTree.getNode(content, "gbk");
 			//class="s xst"
 		String xpath = "//TBODY/TR//TH//A[@class='s xst']/@href";//"//DIV/P";
 
-		xpath = "//TBODY[1]/TR//TH//A[@class='s xst']";//"//DIV/P";
 
-		//xpath = "//SPAN[@id='fd_page_bottom']//DIV[@class='pg']//A[@class='nxt']/@href";
+		//<td class="fr_address_row2">  <p class="FR_field">
+
+		//<span class="FR_label">Reprint Address:
+		xpath="//SPAN[@class='FR_label'][contains(.,'Reprint Address')]";//[contains(.,'通讯作者')]/@href";
+		//class="fr_address_row2">
 
 
-		xpath="//DIV[@class='pi']/DIV[@class='authi']/A[@class='xw1']";
-
-
-		xpath = "//TITLE";
-
-		xpath="//A[contains(.,'下一页')]/@href";
-
+		//<div class="sourinfo">
+		xpath="//DIV[@class='sourinfo']/P[contains(.,'ISSN')]";//[contains(.,'通讯作者')]/@href";
+		xpath="//DIV[@class='sourinfo']/P/A[contains(.,'20')][contains(.,'10')]";
 		NodeList nl = DomTree.commonList(xpath, node);
+
+
+
 		for(int i=0;i<nl.getLength();i++){
+			//System.out.println((i+1)+":"+nl.item(i).getNextSibling().getTextContent());
 			System.out.println((i+1)+":"+nl.item(i).getTextContent());
 		}
 
