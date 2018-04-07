@@ -95,9 +95,41 @@ public class Tree {
 
         //int []pre={1,2,3,4,5,6,7};
         //int []in={3,2,4,1,6,5,7};
-        TreeNode treeNode= reConstructBinaryTree(pre,in);
+        TreeNode treeNode= reConstructBinaryTree2(pre,in);
         System.out.println(treeNode);
     }
+
+
+
+    public TreeNode reConstructBinaryTree2(int [] pre,int [] in) {
+
+        if(pre==null||in==null||pre.length<=0)return null;
+
+        TreeNode head  = reConstructPre2(pre,0,in,0,in.length-1);
+
+
+        return head;
+    }
+    public TreeNode reConstructPre2(int [] pre,int index,
+                               int [] in,int inStart,int inEnd){
+
+        if(index>=pre.length)return null;
+        TreeNode treeNode_tmp = null;
+        for(int i=inStart;i<=inEnd;++i) {
+            if(pre[index]==in[i]) {
+                treeNode_tmp = new TreeNode(pre[index]);
+                treeNode_tmp.left = reConstructPre2(
+                        pre, index + 1,
+                        in, inStart, i-1);
+                treeNode_tmp.right = reConstructPre2(
+                        pre, i -inStart+index+ 1 ,
+                        in, i + 1, inEnd);
+                break;
+            }
+        }
+        return treeNode_tmp;
+    }
+
 
 }
 
