@@ -6,6 +6,7 @@ package common.pojo;
 public class AssociationConferenceData {
 
 
+
     private String id;
     private String contact_position;
     private String contact_phone;
