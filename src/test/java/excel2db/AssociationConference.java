@@ -36,153 +36,156 @@ public class AssociationConference {
             for (int j = 0; j < list.size(); j++) {
 
 
-                String str_tmp = titleList.get(j).toString();
-                if(str_tmp==null||str_tmp.length()==0)continue;
-                str_tmp=str_tmp.trim();
+                String title_tmp = titleList.get(j).toString();
+                String currStr_tmp = list.get(j).toString();
+                if(title_tmp==null||title_tmp.length()==0)continue;
+                if(currStr_tmp==null||currStr_tmp.length()==0)continue;
+
+                title_tmp=title_tmp.trim();
                 for(int k=0;k<10;k++) {
                     dataList_tmp.add(new AssociationConferenceData());
                 }
-                if(str_tmp.equals("单位名称")){
+                if(title_tmp.equals("单位名称")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setInstitutional_name(list.get(j).toString());
+                        dataList_tmp.get(k).setInstitutional_name(currStr_tmp);
                     }
                 }
-                if(str_tmp.equals("联系人")){
+                if(title_tmp.equals("联系人")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setContact_name(list.get(j).toString());
+                        dataList_tmp.get(k).setContact_name(currStr_tmp);
                     }
                 }
-                if(str_tmp.equals("职务")){
+                if(title_tmp.equals("职务")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setContact_position(list.get(j).toString());
+                        dataList_tmp.get(k).setContact_position(currStr_tmp);
                     }
                 }
-                if(str_tmp.equals("联系方式")){
+                if(title_tmp.equals("联系方式")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setContact_phone(list.get(j).toString());
+                        dataList_tmp.get(k).setContact_phone(currStr_tmp);
                     }
                 }
-                if(str_tmp.equals("推荐专家")){
+                if(title_tmp.equals("推荐专家")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setRecommended_experts(list.get(j).toString());
+                        dataList_tmp.get(k).setRecommended_experts(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("会议名称")){//会议名称1
-                    int index  = StringProcess.str2Int(str_tmp.replace("会议名称",""));
-                    dataList_tmp.get(index-1).setConference_name(list.get(j).toString());
+                if(title_tmp.startsWith("会议名称")){//会议名称1
+                    int index  = StringProcess.str2Int(title_tmp.replace("会议名称",""));
+                    dataList_tmp.get(index-1).setConference_name(currStr_tmp);
 
                 }
-                if(str_tmp.startsWith("会议时间")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("会议时间",""));
-                    dataList_tmp.get(index-1).setHolding_time(list.get(j).toString());
+                if(title_tmp.startsWith("会议时间")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("会议时间",""));
+                    dataList_tmp.get(index-1).setHolding_time(currStr_tmp);
                 }
-                if(str_tmp.startsWith("会议地点")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("会议地点",""));
-                    dataList_tmp.get(index-1).setHolding_address(list.get(j).toString());
+                if(title_tmp.startsWith("会议地点")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("会议地点",""));
+                    dataList_tmp.get(index-1).setHolding_address(currStr_tmp);
                 }
-                if(str_tmp.startsWith("所属领域")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("所属领域",""));
-                    dataList_tmp.get(index-1).setField(list.get(j).toString());
+                if(title_tmp.startsWith("所属领域")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("所属领域",""));
+                    dataList_tmp.get(index-1).setField(currStr_tmp);
                 }
-                if(str_tmp.startsWith("会议领域")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("会议领域",""));
-                    dataList_tmp.get(index-1).setField(list.get(j).toString());
-                }
-
-                if(str_tmp.startsWith("主办机构")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("主办机构",""));
-                    dataList_tmp.get(index-1).setInstitutional_name(list.get(j).toString());
-                }
-                if(str_tmp.startsWith("会议规模")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("会议规模",""));
-                    dataList_tmp.get(index-1).setScale(list.get(j).toString());
-                }
-                if(str_tmp.startsWith("连续召开次数")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("连续召开次数",""));
-                    dataList_tmp.get(index-1).setTimes(list.get(j).toString());
-                }
-                if(str_tmp.startsWith("连续召开届次")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("连续召开届次",""));
-                    dataList_tmp.get(index-1).setTimes(list.get(j).toString());
+                if(title_tmp.startsWith("会议领域")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("会议领域",""));
+                    dataList_tmp.get(index-1).setField(currStr_tmp);
                 }
 
-                if(str_tmp.startsWith("是否征集论文")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("是否征集论文",""));
-                    dataList_tmp.get(index-1).setCollection_paper(list.get(j).toString());
+                if(title_tmp.startsWith("主办机构")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("主办机构",""));
+                    dataList_tmp.get(index-1).setInstitutional_name(currStr_tmp);
                 }
-                if(str_tmp.startsWith("推荐理由")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("推荐理由",""));
-                    dataList_tmp.get(index-1).setRecommended_reason(list.get(j).toString());
+                if(title_tmp.startsWith("会议规模")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("会议规模",""));
+                    dataList_tmp.get(index-1).setScale(currStr_tmp);
                 }
-                if(str_tmp.equals("GUID")){
+                if(title_tmp.startsWith("连续召开次数")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("连续召开次数",""));
+                    dataList_tmp.get(index-1).setTimes(currStr_tmp);
+                }
+                if(title_tmp.startsWith("连续召开届次")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("连续召开届次",""));
+                    dataList_tmp.get(index-1).setTimes(currStr_tmp);
+                }
+
+                if(title_tmp.startsWith("是否征集论文")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("是否征集论文",""));
+                    dataList_tmp.get(index-1).setCollection_paper(currStr_tmp);
+                }
+                if(title_tmp.startsWith("推荐理由")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("推荐理由",""));
+                    dataList_tmp.get(index-1).setRecommended_reason(currStr_tmp);
+                }
+                if(title_tmp.equals("GUID")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setGUID(list.get(j).toString());
+                        dataList_tmp.get(k).setGUID(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("审核状态")){
+                if(title_tmp.startsWith("审核状态")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setApproval_status(list.get(j).toString());
+                        dataList_tmp.get(k).setApproval_status(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("单位编号")){
+                if(title_tmp.startsWith("单位编号")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setCompany_number(list.get(j).toString());
+                        dataList_tmp.get(k).setCompany_number(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("填报日期")){
+                if(title_tmp.startsWith("填报日期")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setSignUp_time(list.get(j).toString());
+                        dataList_tmp.get(k).setSignUp_time(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("模板编号")){
+                if(title_tmp.startsWith("模板编号")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setTemplate_number(list.get(j).toString());
+                        dataList_tmp.get(k).setTemplate_number(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("学会编号")){
+                if(title_tmp.startsWith("学会编号")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setCompany_number(list.get(j).toString());
+                        dataList_tmp.get(k).setCompany_number(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("审核人")){
+                if(title_tmp.startsWith("审核人")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setReviewer(list.get(j).toString());
+                        dataList_tmp.get(k).setReviewer(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("审核人编号")){
+                if(title_tmp.startsWith("审核人编号")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setReviewer_number(list.get(j).toString());
+                        dataList_tmp.get(k).setReviewer_number(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("审核时间")){
+                if(title_tmp.startsWith("审核时间")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setReview_time(list.get(j).toString());
+                        dataList_tmp.get(k).setReview_time(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("学会单位")){
+                if(title_tmp.startsWith("学会单位")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setCompany_number(list.get(j).toString());
+                        dataList_tmp.get(k).setCompany_number(currStr_tmp);
                     }
                 }
-                if(str_tmp.startsWith("会议主题")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("会议主题",""));
-                    dataList_tmp.get(index-1).setConference_topic(list.get(j).toString());
+                if(title_tmp.startsWith("会议主题")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("会议主题",""));
+                    dataList_tmp.get(index-1).setConference_topic(currStr_tmp);
                 }
-                if(str_tmp.startsWith("创建年份")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("创建年份",""));
-                    dataList_tmp.get(index-1).setCreate_year(list.get(j).toString());
+                if(title_tmp.startsWith("创建年份")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("创建年份",""));
+                    dataList_tmp.get(index-1).setCreate_year(currStr_tmp);
                 }
-                if(str_tmp.startsWith("检索情况")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("检索情况",""));
-                    dataList_tmp.get(index-1).setSearch_situation(list.get(j).toString());
+                if(title_tmp.startsWith("检索情况")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("检索情况",""));
+                    dataList_tmp.get(index-1).setSearch_situation(currStr_tmp);
                 }
-                if(str_tmp.startsWith("会议截止日期")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("会议截止日期",""));
-                    dataList_tmp.get(index-1).setClosing_date(list.get(j).toString());
+                if(title_tmp.startsWith("会议截止日期")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("会议截止日期",""));
+                    dataList_tmp.get(index-1).setClosing_date(currStr_tmp);
                 }
-                if(str_tmp.startsWith("会议网址")){
-                    int index  = StringProcess.str2Int(str_tmp.replace("会议网址",""));
-                    dataList_tmp.get(index-1).setWeb_address(list.get(j).toString());
+                if(title_tmp.startsWith("会议网址")){
+                    int index  = StringProcess.str2Int(title_tmp.replace("会议网址",""));
+                    dataList_tmp.get(index-1).setWeb_address(currStr_tmp);
                 }
 
 
