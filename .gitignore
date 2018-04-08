@@ -19,4 +19,5 @@ gen
 file
 *.xls
 *.xlsx
-/file/excel/international.xls
+target/
+*.class
