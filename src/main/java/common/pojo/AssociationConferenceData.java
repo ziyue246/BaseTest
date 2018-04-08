@@ -11,8 +11,8 @@ public class AssociationConferenceData {
     private String contact_phone;
     private String recommended_experts;
     private String contact_name;
-    private String comference_name;
-    private String comference_topic;
+    private String conference_name;
+    private String conference_topic;
     private String holding_time;
     private String holding_address;
     private String field;
@@ -83,20 +83,21 @@ public class AssociationConferenceData {
         this.contact_name = contact_name;
     }
 
-    public String getComference_name() {
-        return comference_name;
+
+    public String getConference_name() {
+        return conference_name;
     }
 
-    public void setComference_name(String comference_name) {
-        this.comference_name = comference_name;
+    public void setConference_name(String conference_name) {
+        this.conference_name = conference_name;
     }
 
-    public String getComference_topic() {
-        return comference_topic;
+    public String getConference_topic() {
+        return conference_topic;
     }
 
-    public void setComference_topic(String comference_topic) {
-        this.comference_topic = comference_topic;
+    public void setConference_topic(String conference_topic) {
+        this.conference_topic = conference_topic;
     }
 
     public String getHolding_time() {

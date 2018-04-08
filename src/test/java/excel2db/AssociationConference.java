@@ -69,7 +69,7 @@ public class AssociationConference {
                 }
                 if(str_tmp.startsWith("会议名称")){//会议名称1
                     int index  = StringProcess.str2Int(str_tmp.replace("会议名称",""));
-                    dataList_tmp.get(index-1).setComference_name(list.get(j).toString());
+                    dataList_tmp.get(index-1).setConference_name(list.get(j).toString());
 
                 }
                 if(str_tmp.startsWith("会议时间")){
@@ -166,7 +166,7 @@ public class AssociationConference {
                 }
                 if(str_tmp.startsWith("会议主题")){
                     int index  = StringProcess.str2Int(str_tmp.replace("会议主题",""));
-                    dataList_tmp.get(index-1).setComference_topic(list.get(j).toString());
+                    dataList_tmp.get(index-1).setConference_topic(list.get(j).toString());
                 }
                 if(str_tmp.startsWith("创建年份")){
                     int index  = StringProcess.str2Int(str_tmp.replace("创建年份",""));
@@ -189,7 +189,7 @@ public class AssociationConference {
             }
             int count=0;
             for(AssociationConferenceData data:dataList_tmp){
-                if(data.getComference_name()!=null&&data.getComference_name().length()>3){
+                if(data.getConference_name()!=null&&data.getConference_name().length()>3){
                     dataList.add(data);
                     ++count;
                 }
