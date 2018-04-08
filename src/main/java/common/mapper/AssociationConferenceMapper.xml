@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.mapper.AssociationConferenceMapper">
+
+
+    <insert id="insertInternationalConference"  parameterType="common.pojo.AssociationConferenceData">
+
+		  insert into international_conference(
+			contact_position,
+			contact_phone,
+			recommended_experts,
+			contact_name,
+			comference_name,
+			comference_topic,
+			holding_time,
+			holding_address,
+			field,
+			organizer,
+			`scale`,
+			create_year,
+			closing_date,
+			times,
+			collection_paper,
+			search_situation,
+			web_address,
+			recommended_reason,
+			institutional_name,
+			GUID,
+			approval_status,
+			company_number,
+			signUp_time,
+			template_number,
+			association_number,
+			reviewer,
+			reviewer_number,
+			review_time
+		  )
+		  values(
+				#{contact_position},
+				#{contact_phone},
+				#{recommended_experts},
+				#{contact_name},
+				#{comference_name},
+				#{comference_topic},
+				#{holding_time},
+				#{holding_address},
+				#{field},
+				#{organizer},
+				#{scale},
+				#{create_year},
+				#{closing_date},
+				#{times},
+				#{collection_paper},
+				#{search_situation},
+				#{web_address},
+				#{recommended_reason},
+				#{institutional_name},
+				#{GUID},
+				#{approval_status},
+				#{company_number},
+				#{signUp_time},
+				#{template_number},
+				#{association_number},
+				#{reviewer},
+				#{reviewer_number},
+				#{review_time})
+
+    </insert>
+
+
+
+	<insert id="insertNationalConference"  parameterType="common.pojo.AssociationConferenceData">
+
+		insert into national_conference(
+		contact_position,
+		contact_phone,
+		recommended_experts,
+		contact_name,
+		comference_name,
+		comference_topic,
+		holding_time,
+		holding_address,
+		field,
+		organizer,
+		`scale`,
+		create_year,
+		closing_date,
+		times,
+		collection_paper,
+		search_situation,
+		web_address,
+		recommended_reason,
+		institutional_name,
+		GUID,
+		approval_status,
+		company_number,
+		signUp_time,
+		template_number,
+		association_number,
+		reviewer,
+		reviewer_number,
+		review_time
+		)
+		values(
+		#{contact_position},
+		#{contact_phone},
+		#{recommended_experts},
+		#{contact_name},
+		#{comference_name},
+		#{comference_topic},
+		#{holding_time},
+		#{holding_address},
+		#{field},
+		#{organizer},
+		#{scale},
+		#{create_year},
+		#{closing_date},
+		#{times},
+		#{collection_paper},
+		#{search_situation},
+		#{web_address},
+		#{recommended_reason},
+		#{institutional_name},
+		#{GUID},
+		#{approval_status},
+		#{company_number},
+		#{signUp_time},
+		#{template_number},
+		#{association_number},
+		#{reviewer},
+		#{reviewer_number},
+		#{review_time})
+
+	</insert>
+
+
+</mapper>

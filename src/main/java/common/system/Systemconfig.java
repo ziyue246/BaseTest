@@ -1,5 +1,6 @@
 package common.system;
 
+import common.service.AssociationConferenceService;
 import common.service.CommonService;
 import common.service.HotSearchService;
 
@@ -11,6 +12,8 @@ public class Systemconfig {
 
     public static CommonService commonService;
 
+
+    public static AssociationConferenceService associationConferenceService;
 
     public void initial(){
 
@@ -32,5 +35,14 @@ public class Systemconfig {
 
     public void setCommonService(CommonService commonService) {
         Systemconfig.commonService = commonService;
+    }
+
+
+    public AssociationConferenceService getAssociationConferenceService() {
+        return associationConferenceService;
+    }
+
+    public void setAssociationConferenceService(AssociationConferenceService associationConferenceService) {
+        Systemconfig.associationConferenceService = associationConferenceService;
     }
 }

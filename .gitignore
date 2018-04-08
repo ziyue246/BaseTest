@@ -16,3 +16,7 @@
 *.iml
 out
 gen
+file
+*.xls
+*.xlsx
+/file/excel/international.xls
