@@ -1,5 +1,6 @@
 package excel2db;
 
+import common.pojo.AssociationConferenceAllCountData;
 import common.pojo.AssociationConferenceData;
 import common.system.AppContext;
 import common.system.ExcelOperation;
@@ -205,6 +206,188 @@ public class AssociationConference {
     }
 
 
+
+
+    public  List<AssociationConferenceAllCountData> getExcelAllCountDatas(String path ) {
+
+
+        File file = new File(path);
+        List excelList = ExcelOperation.readExcel(file);
+
+        List<AssociationConferenceAllCountData> dataList = new ArrayList<>();
+
+        List titleList = (List)excelList.get(0);
+        for (int i = 1; i < excelList.size(); i++) {
+            List list = (List) excelList.get(i);
+
+
+            AssociationConferenceAllCountData data = new AssociationConferenceAllCountData();
+
+
+            for (int j = 0; j < list.size(); j++) {
+
+
+                String title_tmp = titleList.get(j).toString();
+                String currStr_tmp = list.get(j).toString();
+                if(title_tmp==null||title_tmp.length()==0)continue;
+                if(currStr_tmp==null||currStr_tmp.length()==0)continue;
+
+                title_tmp=title_tmp.trim();
+
+                if(title_tmp.equals("单位名称")) {
+                    data.setCompany_name(currStr_tmp);
+                }
+                if(title_tmp.equals("联系人")) {
+                    data.setContacts(currStr_tmp);
+                }
+                if(title_tmp.equals("职务")) {
+                    data.setJob_title(currStr_tmp);
+                }
+                if(title_tmp.equals("联系方式")) {
+                    data.setContact_information(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（国内）")) {
+                    data.setMeetings_times_domestic(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（国际）")) {
+                    data.setMeetings_times_international(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（港澳台）")) {
+                    data.setMeetings_times_held_hK_mc_tw(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（国内）")) {
+                    data.setParticipants_number_domestic(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（国际）")) {
+                    data.setParticipants_number_international(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（港澳台）")) {
+                    data.setParticipants_number_hK_mc_tw(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（国内）")) {
+                    data.setExchange_papers_meeting_domestic(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（国际）")) {
+                    data.setExchange_paper_conferences_international(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（港澳台）")) {
+                    data.setExchange_paper_conferences_hK_mc_tw(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（专业性）")) {
+                    data.setNumber_of_times_professional(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（综合性）")) {
+                    data.setNumber_of_times_comprehensive(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（专业性）")) {
+                    data.setParticipants_number_professional(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（综合性）")) {
+                    data.setParticipants_number_comprehensive(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（专业性）")) {
+                    data.setExchange_papers_conference_professional(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（综合性）")) {
+                    data.setExchange_paper_conference_number_comprehensive(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（大型）")) {
+                    data.setMeetings_times_large(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（中型）")) {
+                    data.setMeetings_times_medium(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（小型）")) {
+                    data.setMeetings_times_small(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（大型）")) {
+                    data.setParticipants_number_large(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（中型）")) {
+                    data.setParticipants_number_medium(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（小型）")) {
+                    data.setParticipants_number_small(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（大型）")) {
+                    data.setExchange_papers_conference_large(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（中型）")) {
+                    data.setExchange_papers_meeting_medium(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（小型）")) {
+                    data.setExchange_papers_meeting_small(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（一次性）")) {
+                    data.setMeetings_times_one_time(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（年度性）")) {
+                    data.setNumber_of_times_held_annual(currStr_tmp);
+                }
+                if(title_tmp.equals("举办次数（系列性）")) {
+                    data.setNumber_of_events_series(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（一次性）")) {
+                    data.setMeetings_times_one_time(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（年度性）")) {
+                    data.setParticipants_number_annual(currStr_tmp);
+                }
+                if(title_tmp.equals("参加人数（系列性）")) {
+                    data.setParticipants_number_series(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（一次性）")) {
+                    data.setExchange_paper_conferences_one_time(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（年度性）")) {
+                    data.setExchange_papers_meeting_annual(currStr_tmp);
+                }
+                if(title_tmp.equals("交流论文会议数（系列性）")) {
+                    data.setExchange_papers_meeting_series(currStr_tmp);
+                }
+                if(title_tmp.equals("GUID")) {
+                    data.setGuid(currStr_tmp);
+                }
+                if(title_tmp.equals("审核状态")) {
+                    data.setApproval_status(currStr_tmp);
+                }
+                if(title_tmp.equals("单位编号")) {
+                    data.setCompany_number(currStr_tmp);
+                }
+                if(title_tmp.equals("填报日期")) {
+                    data.setDate_of_completion(currStr_tmp);
+                }
+                if(title_tmp.equals("模板编号")) {
+                    data.setTemplate_number(currStr_tmp);
+                }
+                if(title_tmp.equals("学会编号")) {
+                    data.setInstitutional_number(currStr_tmp);
+                }
+                if(title_tmp.equals("审核人")) {
+                    data.setReviewer(currStr_tmp);
+                }
+                if(title_tmp.equals("审核人编号")) {
+                    data.setReviewer_number(currStr_tmp);
+                }
+                if(title_tmp.equals("审核时间")) {
+                    data.setReview_time(currStr_tmp);
+                }
+                if(title_tmp.equals("学会单位")) {
+                    data.setInstitutional_name(currStr_tmp);
+                }
+
+            }
+            if(data.getCompany_name()!=null||data.getCompany_name().length()>3)
+                dataList.add(data);
+
+
+        }
+        logger.info("total valid data sizes :"+dataList.size());
+        return dataList;
+    }
+
+
+
     @Before
     public void start(){
         AppContext.initial();
@@ -233,5 +416,20 @@ public class AssociationConference {
                     data,AssociationConferenceData.DBSELECT.NATIONAL);
         }
         logger.info("save success 02");
+    }
+
+
+    @Test
+    public void test01(){
+        String path  = "file/excel/allCount.xls";
+
+
+        List<AssociationConferenceAllCountData> dataList = getExcelAllCountDatas(path);
+
+        for(AssociationConferenceAllCountData data:dataList){
+            Systemconfig.associationConferenceService.saveAssociationConferenceAllCountDate(
+                    data);
+        }
+        logger.info("save success ");
     }
 }

@@ -1,5 +1,6 @@
 package common.mapper;
 
+import common.pojo.AssociationConferenceAllCountData;
 import common.pojo.AssociationConferenceData;
 import common.pojo.NameTest;
 
@@ -15,6 +16,6 @@ public interface AssociationConferenceMapper {
     public void insertInternationalConference(AssociationConferenceData associationConferenceData);
 
     public void insertNationalConference(AssociationConferenceData associationConferenceData);
-
+    public void insertAllCountConference(AssociationConferenceAllCountData associationConferenceAllCountData);
 
 }

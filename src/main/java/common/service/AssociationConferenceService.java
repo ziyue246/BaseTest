@@ -2,6 +2,7 @@ package common.service;
 
 import common.mapper.AssociationConferenceMapper;
 import common.mapper.CommonMapper;
+import common.pojo.AssociationConferenceAllCountData;
 import common.pojo.AssociationConferenceData;
 import common.pojo.NameTest;
 import org.apache.log4j.Logger;
@@ -37,5 +38,12 @@ public class AssociationConferenceService {
                 break;
             default:
         }
+    }
+
+    public void saveAssociationConferenceAllCountDate(
+            AssociationConferenceAllCountData associationConferenceAllCountData){
+
+        associationConferenceMapper.insertAllCountConference(associationConferenceAllCountData);
+
     }
 }
