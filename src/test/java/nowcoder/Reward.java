@@ -71,7 +71,8 @@ public class Reward {
         System.out.println(1^0);
     }
 
-    public static void main(String []args)
+    //public static void main(String []args)
+    public void test00001()
     {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()){
@@ -109,6 +110,54 @@ public class Reward {
     }
 
 
+    @Test
+    public void text099(){
+//        int [] A = {0,7,8,10,10,11,12,17,19,18};
+//        int [] B = {4,4,5, 7,11,14,15,16,17,20};
+
+
+//        int [] A = {0,7,8,10,10,11,12,17,19,18};
+//        int [] B = {4,4,6, 7,11,14,15,16,17,20};
+
+//        int []A = {0,4,4,5,9};
+//        int []B = {0,1,6,8,10};
+//        int []A = {2,3,2,5,6};
+//        int []B = {0,1,4,4,5};
+
+        //           1      2
+        int []A={0,1,6,9,10,13,13,16,19,26,23,24,25,27,32,31,35,36,37,39};
+        int []B={2,5,8,8,10,12,14,15,22,22,28,29,30,31,30,33,33,36,37,38};
+
+
+        int count = countExchange(A,B,1);
+
+        System.out.println(count);
+    }
+
+    public int countExchange(int []a,int []b,int index){
+        if(index>=a.length)return 0;
+
+
+        if(a[index]>b[index-1]&&b[index]>a[index-1]) {
+
+            if ((a[index - 1] >= a[index] || b[index - 1] >= b[index])
+                    ) {
+                int tmp = a[index];
+                a[index] = b[index];
+                b[index] = tmp;
+                return countExchange(a, b, index + 1) + 1;
+            }
+            if ((index + 1 < a.length && (a[index] >= a[index + 1] || b[index] >= b[index + 1]))
+                    ) {
+                int tmp = a[index];
+                a[index] = b[index];
+                b[index] = tmp;
+                return countExchange(a, b, index + 1) + 1;
+            }
+        }
+
+        return countExchange(a, b, index + 1);
+    }
 
 
 

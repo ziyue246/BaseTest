@@ -527,6 +527,12 @@
             <version>2012_u6</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.carrot2</groupId>
+            <artifactId>carrot2-core</artifactId>
+            <version>3.15.1</version>
+        </dependency>
+
 
 
     </dependencies>

@@ -48,6 +48,11 @@ public class AssociationConference {
                 }
                 if(title_tmp.equals("单位名称")){
                     for(int k=0;k<10;k++) {
+                        dataList_tmp.get(k).setCompany_name(currStr_tmp);
+                    }
+                }
+                if(title_tmp.startsWith("学会单位")){
+                    for(int k=0;k<10;k++) {
                         dataList_tmp.get(k).setInstitutional_name(currStr_tmp);
                     }
                 }
@@ -95,7 +100,7 @@ public class AssociationConference {
 
                 if(title_tmp.startsWith("主办机构")){
                     int index  = StringProcess.str2Int(title_tmp.replace("主办机构",""));
-                    dataList_tmp.get(index-1).setInstitutional_name(currStr_tmp);
+                    dataList_tmp.get(index-1).setOrganizer(currStr_tmp);
                 }
                 if(title_tmp.startsWith("会议规模")){
                     int index  = StringProcess.str2Int(title_tmp.replace("会议规模",""));
@@ -145,7 +150,7 @@ public class AssociationConference {
                 }
                 if(title_tmp.startsWith("学会编号")){
                     for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setCompany_number(currStr_tmp);
+                        dataList_tmp.get(k).setAssociation_number(currStr_tmp);
                     }
                 }
                 if(title_tmp.startsWith("审核人")){
@@ -163,11 +168,7 @@ public class AssociationConference {
                         dataList_tmp.get(k).setReview_time(currStr_tmp);
                     }
                 }
-                if(title_tmp.startsWith("学会单位")){
-                    for(int k=0;k<10;k++) {
-                        dataList_tmp.get(k).setCompany_number(currStr_tmp);
-                    }
-                }
+
                 if(title_tmp.startsWith("会议主题")){
                     int index  = StringProcess.str2Int(title_tmp.replace("会议主题",""));
                     dataList_tmp.get(index-1).setConference_topic(currStr_tmp);
@@ -193,7 +194,8 @@ public class AssociationConference {
             }
             int count=0;
             for(AssociationConferenceData data:dataList_tmp){
-                if(data.getConference_name()!=null&&data.getConference_name().length()>3){
+                if(data.getConference_name()!=null&&data.getConference_name().length()>3
+                        &&data.getApproval_status().equals("审核通过")){
                     dataList.add(data);
                     ++count;
                 }
@@ -377,7 +379,8 @@ public class AssociationConference {
                 }
 
             }
-            if(data.getCompany_name()!=null||data.getCompany_name().length()>3)
+            if(data.getCompany_name()!=null&&data.getCompany_name().length()>3
+                    &&data.getApproval_status().equals("审核通过"))
                 dataList.add(data);
 
 
@@ -396,21 +399,15 @@ public class AssociationConference {
 
     @Test
     public void test(){
-        String path  = "file/excel/international.xls";
-
-
+        String path  = "file/conference/excel/20180413/international.xls";
         List<AssociationConferenceData> dataList = getExcelDatas(path);
-
         for(AssociationConferenceData data:dataList){
            Systemconfig.associationConferenceService.saveAssociationConferenceDate(
                    data,AssociationConferenceData.DBSELECT.INTERNATIONAL);
         }
         logger.info("save success 01");
-        path  = "file/excel/national.xls";
-
-
+        path  = "file/conference/excel/20180413/national.xls";
         dataList = getExcelDatas(path);
-
         for(AssociationConferenceData data:dataList){
             Systemconfig.associationConferenceService.saveAssociationConferenceDate(
                     data,AssociationConferenceData.DBSELECT.NATIONAL);
@@ -421,7 +418,7 @@ public class AssociationConference {
 
     @Test
     public void test01(){
-        String path  = "file/excel/allCount.xls";
+        String path  = "file/conference/excel/20180413/allCount.xls";
 
 
         List<AssociationConferenceAllCountData> dataList = getExcelAllCountDatas(path);

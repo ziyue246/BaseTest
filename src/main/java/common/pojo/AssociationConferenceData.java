@@ -36,13 +36,20 @@ public class AssociationConferenceData {
     private String reviewer;
     private String reviewer_number;
     private String review_time;
-
+    private String company_name;
 
     public enum DBSELECT {
         NATIONAL,INTERNATIONAL
     }
 
 
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
+    }
 
     public String getId() {
         return id;
