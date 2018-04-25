@@ -1,8 +1,10 @@
 package common.system;
 
+import common.mapper.IntelligentTyresMapper;
 import common.service.AssociationConferenceService;
 import common.service.CommonService;
 import common.service.HotSearchService;
+import common.service.IntelligentTyresService;
 
 
 public class Systemconfig {
@@ -14,6 +16,9 @@ public class Systemconfig {
 
 
     public static AssociationConferenceService associationConferenceService;
+
+
+    public  static IntelligentTyresService intelligentTyresService;
 
     public void initial(){
 
@@ -44,5 +49,14 @@ public class Systemconfig {
 
     public void setAssociationConferenceService(AssociationConferenceService associationConferenceService) {
         Systemconfig.associationConferenceService = associationConferenceService;
+    }
+
+
+    public IntelligentTyresService getIntelligentTyresService() {
+        return intelligentTyresService;
+    }
+
+    public void setIntelligentTyresService(IntelligentTyresService intelligentTyresService) {
+        Systemconfig.intelligentTyresService = intelligentTyresService;
     }
 }

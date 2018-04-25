@@ -50,11 +50,21 @@
     </bean>
 
 
+
+    <bean id="intelligentTyresMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="common.mapper.IntelligentTyresMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="intelligentTyresService" class="common.service.IntelligentTyresService">
+        <property name="intelligentTyresMapper" ref="intelligentTyresMapper"/>
+    </bean>
+
     <bean id="systemconfig" class="common.system.Systemconfig" init-method="initial">
         <property name="hotSearchService" ref="hotSearchService"/>
 
         <property name="commonService" ref="commonService"/>
         <property name="associationConferenceService" ref="associationConferenceService"/>
+        <property name="intelligentTyresService" ref="intelligentTyresService"/>
     </bean>
 
 </beans>

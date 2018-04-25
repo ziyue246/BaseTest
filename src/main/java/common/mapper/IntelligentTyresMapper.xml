@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.mapper.IntelligentTyresMapper">
+
+
+	<!--<resultMap id="NewsResultMap" type="common.pojo.NewsData" >-->
+		<!--<id column="ID" 				            property="ID"  jdbcType="INTEGER" />-->
+
+		<!--<result column="ID"		property="ID"					jdbcType="INTEGER" />-->
+		<!--<result column="TITLE"		property="TITLE"				jdbcType="VARCHAR" />-->
+		<!--<result column="AUTHOR"		property="AUTHOR"				jdbcType="VARCHAR" />-->
+		<!--<result column="SITE_ID"	property="SITE_ID"				jdbcType="INTEGER" />-->
+		<!--<result column="PUBTIME"	property="PUBTIME"				jdbcType="TIMESTAMP" />-->
+		<!--<result column="URL"		property="URL"					jdbcType="VARCHAR" />-->
+		<!--<result column="SEARCH_KEYWORD"		property="SEARCH_KEYWORD"		jdbcType="VARCHAR" />-->
+		<!--<result column="SOURCE"			property="SOURCE"			jdbcType="VARCHAR" />-->
+		<!--<result column="CATEGORY_CODE"		property="CATEGORY_CODE"		jdbcType="VARCHAR" />-->
+		<!--<result column="INSERTTIME"		property="INSERTTIME"			jdbcType="TIMESTAMP" />-->
+		<!--<result column="MD5"			property="MD5"				jdbcType="VARCHAR" />-->
+		<!--<result column="CONTENT"		property="CONTENT"			jdbcType="VARCHAR" />-->
+		<!--<result column="BRIEF"			property="BRIEF"			jdbcType="VARCHAR" />-->
+		<!--<result column="IMG_URL"		property="IMG_URL"			jdbcType="VARCHAR" />-->
+		<!--<result column="SAME_NUM"		property="SAME_NUM"			jdbcType="VARCHAR" />-->
+		<!--<result column="SAME_URL"		property="SAME_URL"			jdbcType="INTEGER" />-->
+		<!--<result column="OLD_ID"			property="OLD_ID"			jdbcType="INTEGER" />-->
+
+	<!--</resultMap>-->
+
+	<!--<select id="getInternationalConference"  resultMap="ConferenceDateMap">-->
+		<!--select * from international_conference-->
+
+	<!--</select>-->
+
+
+
+
+    <insert id="insertIntelligentTyresPaper"  parameterType="common.pojo.IntelligentTyresData">
+
+		  insert into paper_data(
+			remove_reason,
+			new_category_reason,
+			title,
+			download,
+			author,
+			category_db,
+			journal,
+			summary,
+			keywords,
+			address,
+			refer_num,
+			cite_num,
+			down_num,
+			lib_category,
+			en_author,
+			fund,
+			searchkey,
+			application_num,
+			applicant,
+			application_time,
+			pubtime,
+			inventor,
+			excel_id,
+			category,
+			`language`
+		  )
+		  values(
+				#{remove_reason},
+				#{new_category_reason},
+				#{title},
+				#{download},
+				#{author},
+				#{category_db},
+				#{journal},
+				#{summary},
+				#{keywords},
+				#{address},
+				#{refer_num},
+				#{cite_num},
+				#{down_num},
+				#{lib_category},
+				#{en_author},
+				#{fund},
+				#{searchkey},
+				#{application_num},
+				#{applicant},
+				#{application_time},
+				#{pubtime},
+				#{inventor},
+				#{excel_id},
+				#{category},
+				#{language}
+		  )
+
+    </insert>
+
+
+	<insert id="insertIntelligentTyresPatent"  parameterType="common.pojo.IntelligentTyresData">
+
+		insert into patent_data(
+			remove_reason,
+			new_category_reason,
+			title,
+			download,
+			author,
+			category_db,
+			journal,
+			summary,
+			keywords,
+			address,
+			refer_num,
+			cite_num,
+			down_num,
+			lib_category,
+			en_author,
+			fund,
+			searchkey,
+			application_num,
+			applicant,
+			application_time,
+			pubtime,
+			inventor,
+			excel_id,
+			category,
+			`language`
+		)
+		values(
+			#{remove_reason},
+			#{new_category_reason},
+			#{title},
+			#{download},
+			#{author},
+			#{category_db},
+			#{journal},
+			#{summary},
+			#{keywords},
+			#{address},
+			#{refer_num},
+			#{cite_num},
+			#{down_num},
+			#{lib_category},
+			#{en_author},
+			#{fund},
+			#{searchkey},
+			#{application_num},
+			#{applicant},
+			#{application_time},
+			#{pubtime},
+			#{inventor},
+			#{excel_id},
+			#{category},
+			#{language}
+		)
+
+	</insert>
+
+</mapper>

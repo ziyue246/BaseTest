@@ -399,14 +399,14 @@ public class AssociationConference {
 
     @Test
     public void test(){
-        String path  = "file/conference/excel/20180413/international.xls";
+        String path  = "file/conference/excel/20180420/international1.xls";
         List<AssociationConferenceData> dataList = getExcelDatas(path);
         for(AssociationConferenceData data:dataList){
            Systemconfig.associationConferenceService.saveAssociationConferenceDate(
                    data,AssociationConferenceData.DBSELECT.INTERNATIONAL);
         }
         logger.info("save success 01");
-        path  = "file/conference/excel/20180413/national.xls";
+        path  = "file/conference/excel/20180420/national1.xls";
         dataList = getExcelDatas(path);
         for(AssociationConferenceData data:dataList){
             Systemconfig.associationConferenceService.saveAssociationConferenceDate(
@@ -418,7 +418,7 @@ public class AssociationConference {
 
     @Test
     public void test01(){
-        String path  = "file/conference/excel/20180413/allCount.xls";
+        String path  = "file/conference/excel/20180420/allCount1.xls";
 
 
         List<AssociationConferenceAllCountData> dataList = getExcelAllCountDatas(path);
