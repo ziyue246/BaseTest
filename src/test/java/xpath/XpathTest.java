@@ -21,8 +21,8 @@ public class XpathTest {
 				result = result.replaceAll("\t", "");
 			while (result.indexOf("  ")!=-1)
 				result = result.replaceAll("  ", " ");
-			while (result.indexOf("ã€?")!=-1)
-				result = result.replaceAll("ã€?", "");
+			while (result.indexOf("ï¿½?")!=-1)
+				result = result.replaceAll("ï¿½?", "");
 			return result.trim();
 		}
 		return "";
@@ -184,7 +184,7 @@ public class XpathTest {
 		String xpath = "//DIV[@class='fb']/CITE[contains(@id,'cacheresult_info_')]";
 	    
 	//<p style="text-align: right;">  <div class="c-span18 c-span-last">
-		xpath= "//DIV[@class='result'][@id='<index>']//SPAN[@class='c-info']/A[contains(.,'²é¿´¸ü¶àÏà¹ØÐÂÎÅ')]/@href";
+		xpath= "//DIV[@class='result'][@id='<index>']//SPAN[@class='c-info']/A[contains(.,'')]/@href";
 			
 		
 		
@@ -267,7 +267,7 @@ public class XpathTest {
 
 		//content = html.getContent();
 		//System.out.println(content);
-		//System.out.println("²âÊÔÖÐÎÄ");
+		//System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 //
 //		//String content = html.getContent();
 
@@ -282,12 +282,12 @@ public class XpathTest {
 		//<td class="fr_address_row2">  <p class="FR_field">
 
 		//<span class="FR_label">Reprint Address:
-		xpath="//SPAN[@class='FR_label'][contains(.,'Reprint Address')]";//[contains(.,'Í¨Ñ¶×÷Õß')]/@href";
+		xpath="//SPAN[@class='FR_label'][contains(.,'Reprint Address')]";//[contains(.,'Í¨Ñ¶ï¿½ï¿½ï¿½ï¿½')]/@href";
 		//class="fr_address_row2">
 
 
 		//<div class="sourinfo">
-		xpath="//DIV[@class='sourinfo']/P[contains(.,'ISSN')]";//[contains(.,'Í¨Ñ¶×÷Õß')]/@href";
+		xpath="//DIV[@class='sourinfo']/P[contains(.,'ISSN')]";//[contains(.,'Í¨Ñ¶ï¿½ï¿½ï¿½ï¿½')]/@href";
 		xpath="//DIV[@class='sourinfo']/P/A[contains(.,'20')][contains(.,'10')]";
 		NodeList nl = DomTree.commonList(xpath, node);
 

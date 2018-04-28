@@ -95,7 +95,7 @@ public class DomTree {
 		try {
 			byt = content.replaceAll("[\\x00-\\x08\\x0b-\\x0c\\x0e-\\x1f]", "").getBytes(charset);
 		} catch (UnsupportedEncodingException e) {
-			System.out.println("����ֽ�ʧ�ܣ��������Ƿ����");
+			logger.warn(e.getMessage());
 			byt = null;
 			return null;
 		}
