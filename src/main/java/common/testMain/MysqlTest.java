@@ -48,7 +48,7 @@ public class MysqlTest {
 
         NameTest name = new NameTest();
 
-        name.setName("едЫФ");
+        name.setName("");
         Systemconfig.commonService.testInsertUpdateId(name);
         System.out.println(name);
     }

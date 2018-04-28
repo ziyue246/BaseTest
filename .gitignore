@@ -9,10 +9,17 @@
 ### build/    #
 ### doc/*.txt #
 
-
+#git rm -r --cached .
+#git add .
+#git commit -m "update gitignore"
 
 # IntelliJ project files
 .idea
 *.iml
 out
 gen
+file
+*.xls
+*.xlsx
+target/
+*.class
