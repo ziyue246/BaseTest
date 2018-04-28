@@ -106,7 +106,7 @@ public class FileOperation {
         synchronized(FileOperation.class) {
             BufferedOutputStream Buff = null;
             try {
-                Buff = new BufferedOutputStream(new FileOutputStream(new File(file)));
+                Buff = new BufferedOutputStream(new FileOutputStream(new File(file.replaceAll("[:|/|?|*|\"|<|>|\\|]",""))));
 
                 Buff.write(content.getBytes());
                 Buff.flush();

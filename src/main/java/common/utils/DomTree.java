@@ -284,6 +284,19 @@ public class DomTree {
 		}
 		return sb.toString();
 	}
+
+	public static String parserNodeByXpathGetStringSplitByMarkWithPrefix(Node node,String xpath,String mark,String prefix) {
+		NodeList nl = DomTree.commonList(xpath,node);
+		if(nl==null||nl.getLength()==0){
+			logger.warn("nl==null||nl.getLength()==0:xpath:"+xpath);
+			return null;
+		}
+		StringBuffer sb = new StringBuffer();
+		for(int i=0;i<nl.getLength();i++){
+			sb.append(prefix+nl.item(i).getTextContent().trim()+mark);
+		}
+		return sb.toString();
+	}
 	
 	public static String parserContentByXpathGetStringSplitByMark(String content,String charset,
 			String xpath,String mark){
