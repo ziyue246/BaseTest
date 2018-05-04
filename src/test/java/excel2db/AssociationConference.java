@@ -195,7 +195,8 @@ public class AssociationConference {
             int count=0;
             for(AssociationConferenceData data:dataList_tmp){
                 if(data.getConference_name()!=null&&data.getConference_name().length()>3
-                        &&data.getApproval_status().equals("审核通过")){
+                        //&&data.getApproval_status().equals("审核通过")
+                        ){
                     dataList.add(data);
                     ++count;
                 }
@@ -380,7 +381,8 @@ public class AssociationConference {
 
             }
             if(data.getCompany_name()!=null&&data.getCompany_name().length()>3
-                    &&data.getApproval_status().equals("审核通过"))
+                    //&&data.getApproval_status().equals("审核通过")
+                    )
                 dataList.add(data);
 
 
@@ -399,14 +401,14 @@ public class AssociationConference {
 
     @Test
     public void test(){
-        String path  = "file/conference/excel/20180426/international.xls";
+        String path  = "file/conference/excel/20180504/international.xls";
         List<AssociationConferenceData> dataList = getExcelDatas(path);
         for(AssociationConferenceData data:dataList){
            Systemconfig.associationConferenceService.saveAssociationConferenceDate(
                    data,AssociationConferenceData.DBSELECT.INTERNATIONAL);
         }
         logger.info("save success 01");
-        path  = "file/conference/excel/20180426/national.xls";
+        path  = "file/conference/excel/20180504/national.xls";
         dataList = getExcelDatas(path);
         for(AssociationConferenceData data:dataList){
             Systemconfig.associationConferenceService.saveAssociationConferenceDate(
@@ -418,7 +420,7 @@ public class AssociationConference {
 
     @Test
     public void test01(){
-        String path  = "file/conference/excel/20180426/allCount.xls";
+        String path  = "file/conference/excel/20180504/allCount.xls";
 
 
         List<AssociationConferenceAllCountData> dataList = getExcelAllCountDatas(path);
