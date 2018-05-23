@@ -1,12 +1,16 @@
 package thereTime;
 
+import org.junit.Test;
+
 import java.util.Calendar;
 import java.util.Date;
 
 public class RemainingTime {
 	
 	
-	public static void main(String []args){
+
+	@Test
+	public void testCaculateReaminingTime(){
 		Calendar cal = Calendar.getInstance();
 		Date nowDate = cal.getTime();
 		cal.set(2017, 3, 12);
@@ -31,9 +35,14 @@ public class RemainingTime {
 		System.out.println("rem days   :"+remDays);
 		System.out.println("rem weeks  :"+remDays/7.0);
 		System.out.println("rem months :"+remDays/30.0);
-		
+		System.out.println("rem money  :"+remDays/30.0*13.0/36.0+"w");
+
+
 		System.out.println("rem years  :"+remDays/365.0);
 		System.out.println("rem rate   :"+1.0*remDays/betweenDays);
+
 	}
+
+
 
 }

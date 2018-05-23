@@ -3,6 +3,7 @@ package xpath;
 import common.http.HtmlInfo;
 import common.http.SimpleHttp;
 import common.system.FileOperation;
+import common.system.StringProcess;
 import common.utils.DomTree;
 import org.junit.Test;
 import org.w3c.dom.DocumentFragment;
@@ -216,34 +217,48 @@ public class XpathTest {
 	
 	
 	
-	
+	@Test
 	public void testNews() throws Exception{
 		
 		
-		String path  = "C:/Users/Administrator/Desktop/123.html";
+		String path  = "C:/Users/Administrator/Desktop/1.html";
 		
 		String content = FileOperation.read(path);
 		DocumentFragment node = DomTree.getNode(content, "utf-8");
 		String xpath = "//DIV[@class='fb']/CITE[contains(@id,'cacheresult_info_')]";
 	    
-	//<p style="text-align: right;">
-		xpath= "//DIV[@id='js_content']//SPAN";
-	
-		
+		//<p style="text-align: right;">
+		// <div class="totalRow">  <div class="tcPerYear"
+		//style="vertical-align:top;"
+		xpath= "//DIV[@class='tcPerYear'][@style='vertical-align:top;']|//DIV[@class='totalRow']//SPAN";
+		// <div class="create-cite-report">  <div class="summary_CitCount">
+		// <div id="view_citation_report_image_placeholder">
+
+		//		<div id="view_citation_report_image">
+		//		<div class="summary_CitCount">   <nobr>   <a
+		xpath = //"//DIV[@class='create-cite-report']
+				"//DIV[@id='view_citation_report_image']//DIV[@class='summary_CitCount']//A/@href";
+		//summary_CitCount
 		NodeList nl = DomTree.commonList(xpath, node);
 	    
 	    System.out.println(nl.getLength());
 	    //System.out.println(nl.item(0).getTextContent());
-	    String result = DomTree.parserNodeByXpathGetString(node, xpath,"count");
+	    String result = DomTree.parserNodeByXpathGetString(node, xpath,"##");
 		System.out.println(result);
 		    
 	    
 		result = DomTree.parserNodeByXpathGetIndexContent(node, xpath,0);
 		System.out.println(result);
+
+
+
+		//System.out.println("1,"+StringProcess.regex2StrSplitByMark(content,"\"raw_tc_data\".*?\n?.*?}","#"));
+
+		//System.out.println("2,"+content.split("raw_tc_data")[1].split("}")[0]);
 	}
 
 
-
+//\{.*?\}
 
 
 
