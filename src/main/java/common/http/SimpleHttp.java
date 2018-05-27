@@ -46,9 +46,9 @@ public class SimpleHttp {
 	}
 
 	RequestConfig defaultRequestConfig = RequestConfig.custom()
-			.setSocketTimeout(1000 * 60 * 10)
-			.setConnectTimeout(1000 * 60 * 10)
-			.setConnectionRequestTimeout(1000 * 60 * 10)
+			.setSocketTimeout(1000 * 60 )
+			.setConnectTimeout(1000 * 60 )
+			.setConnectionRequestTimeout(1000 * 60 )
 			.setStaleConnectionCheckEnabled(true)
 			.setRedirectsEnabled(false)
 			.build();
@@ -294,7 +294,7 @@ public class SimpleHttp {
 		}
 	}
 	
-	public void simpleGet(common.http.HtmlInfo html) {
+	public void simpleGet(HtmlInfo html) {
 		//可以关闭的http请求客户端对象
 		HttpClient client = null;
 		//创建httpget请求对象
@@ -590,7 +590,7 @@ public class SimpleHttp {
 		}
 		return null;
 	}
-    public void httpUrlConnectiondown(common.http.HtmlInfo html, String filename) {
+    public void urlConnectionGet(HtmlInfo html) {
 
 		html.setResponseStatus(-1);
         html.setContent(null);
@@ -642,18 +642,14 @@ public class SimpleHttp {
 				while( (len=inStream.read(buffer)) != -1 ){
 					outStream.write(buffer, 0, len);
 				}
-				File file = new File(filename);
-				FileOutputStream fops = new FileOutputStream(file);
-				fops.write(outStream.toByteArray());
-				fops.flush();
-				fops.close();
+				html.setContent(new String(outStream.toByteArray(), html.getEncode()));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
     
-    public void httpUrlConnectionPost(common.http.HtmlInfo html, ArrayList<String> params) {
+    public void urlConnectionPost(common.http.HtmlInfo html, ArrayList<String> params) {
     	//清空上次请求的内容
         html.setContent(null);
         //清空上次的请求状态吗
@@ -830,15 +826,15 @@ public class SimpleHttp {
             if (response == null)
                 logger.trace("client.execute(post)出错！：response=null");
             html.setResponseStatus(response.getStatusLine().getStatusCode());
-            logger.trace("Post statusList:\t" + response.getStatusLine());
+            logger.info("Post statusList:\t" + response.getStatusLine());
         } catch (ClientProtocolException | NoHttpResponseException | SSLHandshakeException | SocketTimeoutException e) {
-            logger.trace("simplePost : " + e.getMessage() + "  \t  代理问题，连接超时");
+            logger.error("simplePost : " + e.getMessage() + "  \t  代理问题，连接超时");
             return null;
         } catch (HttpHostConnectException e) {
-            logger.trace("simplePost : " + e.getMessage() + "  \t  代理问题，连接超时");
+            logger.error("simplePost : " + e.getMessage() + "  \t  代理问题，连接超时");
             return null;
         } catch (Exception e1) {
-            logger.trace("client.execute(post)出错：", e1);
+            logger.error("client.execute(post)出错：", e1);
         } finally {
             post.abort();
         }
