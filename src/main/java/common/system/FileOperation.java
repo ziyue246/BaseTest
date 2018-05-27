@@ -54,11 +54,13 @@ public class FileOperation {
 	public FileOperation() {
 
 	}
-	public static void appendWrite(String fileName, String content) {
+	public static void appendWrite(String content,String fileName) {
         synchronized(FileOperation.class) {
             try {
-                FileWriter writer = new FileWriter(fileName, true);
+                FileWriter writer = new FileWriter(new File(fileNameProcess(fileName)), true);
                 writer.write(content);
+
+                writer.flush();
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -106,7 +108,7 @@ public class FileOperation {
         synchronized(FileOperation.class) {
             BufferedOutputStream Buff = null;
             try {
-                Buff = new BufferedOutputStream(new FileOutputStream(new File(file.replaceAll("[:|/|?|*|\"|<|>|\\|]",""))));
+                Buff = new BufferedOutputStream(new FileOutputStream(new File(fileNameProcess(file))));
 
                 Buff.write(content.getBytes());
                 Buff.flush();
@@ -123,6 +125,32 @@ public class FileOperation {
             }
         }
 	}
-	
+
+
+    public static void write(String content,String file,boolean append) {
+        synchronized(FileOperation.class) {
+            BufferedOutputStream Buff = null;
+            try {
+                Buff = new BufferedOutputStream(new FileOutputStream(new File(fileNameProcess(file)),append));
+
+                Buff.write(content.getBytes());
+                Buff.flush();
+                Buff.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    Buff.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+	private static String fileNameProcess(String file){
+        return file;//.replaceAll("[:|/|?|*|\"|<|>|\\|]","");
+    }
 	
 }
