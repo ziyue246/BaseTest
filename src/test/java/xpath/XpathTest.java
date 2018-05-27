@@ -252,9 +252,10 @@ public class XpathTest {
 
 
 
-		//System.out.println("1,"+StringProcess.regex2StrSplitByMark(content,"\"raw_tc_data\".*?\n?.*?}","#"));
+		System.out.println("1,"+StringProcess.regex2StrSplitByMark(content,"\"raw_tc_data\".*?\n?.*?}","#"));
 
-		//System.out.println("2,"+content.split("raw_tc_data")[1].split("}")[0]);
+		System.out.println("2,"+content.split("raw_tc_data")[1]
+				.split("}")[0].split("\\{")[1]);
 	}
 
 
