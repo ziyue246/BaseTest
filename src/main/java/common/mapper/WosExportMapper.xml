@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.mapper.WosExportMapper">
+
+
+	<!--<resultMap id="NewsResultMap" type="common.pojo.NewsData" >-->
+		<!--<id column="ID" 				            property="ID"  jdbcType="INTEGER" />-->
+
+		<!--<result column="ID"		property="ID"					jdbcType="INTEGER" />-->
+		<!--<result column="TITLE"		property="TITLE"				jdbcType="VARCHAR" />-->
+		<!--<result column="AUTHOR"		property="AUTHOR"				jdbcType="VARCHAR" />-->
+		<!--<result column="SITE_ID"	property="SITE_ID"				jdbcType="INTEGER" />-->
+		<!--<result column="PUBTIME"	property="PUBTIME"				jdbcType="TIMESTAMP" />-->
+		<!--<result column="URL"		property="URL"					jdbcType="VARCHAR" />-->
+		<!--<result column="SEARCH_KEYWORD"		property="SEARCH_KEYWORD"		jdbcType="VARCHAR" />-->
+		<!--<result column="SOURCE"			property="SOURCE"			jdbcType="VARCHAR" />-->
+		<!--<result column="CATEGORY_CODE"		property="CATEGORY_CODE"		jdbcType="VARCHAR" />-->
+		<!--<result column="INSERTTIME"		property="INSERTTIME"			jdbcType="TIMESTAMP" />-->
+		<!--<result column="MD5"			property="MD5"				jdbcType="VARCHAR" />-->
+		<!--<result column="CONTENT"		property="CONTENT"			jdbcType="VARCHAR" />-->
+		<!--<result column="BRIEF"			property="BRIEF"			jdbcType="VARCHAR" />-->
+		<!--<result column="IMG_URL"		property="IMG_URL"			jdbcType="VARCHAR" />-->
+		<!--<result column="SAME_NUM"		property="SAME_NUM"			jdbcType="VARCHAR" />-->
+		<!--<result column="SAME_URL"		property="SAME_URL"			jdbcType="INTEGER" />-->
+		<!--<result column="OLD_ID"			property="OLD_ID"			jdbcType="INTEGER" />-->
+
+	<!--</resultMap>-->
+
+	<!--<select id="getInternationalConference"  resultMap="ConferenceDateMap">-->
+		<!--select * from international_conference-->
+
+	<!--</select>-->
+
+
+
+
+    <insert id="insertWosExportPaper"  parameterType="common.pojo.WosExportData">
+
+		  insert into wos_data(
+			`PT`,
+			`AU`,
+			`BA`,
+			`BE`,
+			`GP`,
+			`AF`,
+			`BF`,
+			`CA`,
+			`TI`,
+			`SO`,
+			`SE`,
+			`BS`,
+			`LA`,
+			`DT`,
+			`CT`,
+			`CY`,
+			`CL`,
+			`SP`,
+			`HO`,
+			`DE`,
+			`ID`,
+			`AB`,
+			`C1`,
+			`RP`,
+			`EM`,
+			`RI`,
+			`OI`,
+			`FU`,
+			`FX`,
+			`CR`,
+			`NR`,
+			`TC`,
+			`Z9`,
+			`U1`,
+			`U2`,
+			`PU`,
+			`PI`,
+			`PA`,
+			`SN`,
+			`EI`,
+			`BN`,
+			`J9`,
+			`JI`,
+			`PD`,
+			`PY`,
+			`VL`,
+			`IS`,
+			`PN`,
+			`SU`,
+			`SI`,
+			`MA`,
+			`BP`,
+			`EP`,
+			`AR`,
+			`DI`,
+			`D2`,
+			`EA`,
+			`EY`,
+			`PG`,
+			`WC`,
+			`SC`,
+			`GA`,
+			`UT`,
+			`PM`,
+			`OA`,
+			`HC`,
+			`HP`,
+			`DA`
+		  )
+		  values(
+				#{PT},
+				#{AU},
+				#{BA},
+				#{BE},
+				#{GP},
+				#{AF},
+				#{BF},
+				#{CA},
+				#{TI},
+				#{SO},
+				#{SE},
+				#{BS},
+				#{LA},
+				#{DT},
+				#{CT},
+				#{CY},
+				#{CL},
+				#{SP},
+				#{HO},
+				#{DE},
+				#{ID},
+				#{AB},
+				#{C1},
+				#{RP},
+				#{EM},
+				#{RI},
+				#{OI},
+				#{FU},
+				#{FX},
+				#{CR},
+				#{NR},
+				#{TC},
+				#{Z9},
+				#{U1},
+				#{U2},
+				#{PU},
+				#{PI},
+				#{PA},
+				#{SN},
+				#{EI},
+				#{BN},
+				#{J9},
+				#{JI},
+				#{PD},
+				#{PY},
+				#{VL},
+				#{IS},
+				#{PN},
+				#{SU},
+				#{SI},
+				#{MA},
+				#{BP},
+				#{EP},
+				#{AR},
+				#{DI},
+				#{D2},
+				#{EA},
+				#{EY},
+				#{PG},
+				#{WC},
+				#{SC},
+				#{GA},
+				#{UT},
+				#{PM},
+				#{OA},
+				#{HC},
+				#{HP},
+				#{DA}
+
+		  )
+
+    </insert>
+
+
+	<insert id="insertWosExportPaperByBatch" parameterType="java.util.List">
+		insert into wos_data(
+		`PT`,
+		`AU`,
+		`BA`,
+		`BE`,
+		`GP`,
+		`AF`,
+		`BF`,
+		`CA`,
+		`TI`,
+		`SO`,
+		`SE`,
+		`BS`,
+		`LA`,
+		`DT`,
+		`CT`,
+		`CY`,
+		`CL`,
+		`SP`,
+		`HO`,
+		`DE`,
+		`ID`,
+		`AB`,
+		`C1`,
+		`RP`,
+		`EM`,
+		`RI`,
+		`OI`,
+		`FU`,
+		`FX`,
+		`CR`,
+		`NR`,
+		`TC`,
+		`Z9`,
+		`U1`,
+		`U2`,
+		`PU`,
+		`PI`,
+		`PA`,
+		`SN`,
+		`EI`,
+		`BN`,
+		`J9`,
+		`JI`,
+		`PD`,
+		`PY`,
+		`VL`,
+		`IS`,
+		`PN`,
+		`SU`,
+		`SI`,
+		`MA`,
+		`BP`,
+		`EP`,
+		`AR`,
+		`DI`,
+		`D2`,
+		`EA`,
+		`EY`,
+		`PG`,
+		`WC`,
+		`SC`,
+		`GA`,
+		`UT`,
+		`PM`,
+		`OA`,
+		`HC`,
+		`HP`,
+		`DA`
+		)
+		values
+		<foreach collection="wosExportDatas" item="item" index="index" separator=",">
+			(
+			#{item.PT,jdbcType=VARCHAR},
+			#{item.AU,jdbcType=VARCHAR},
+			#{item.BA,jdbcType=VARCHAR},
+			#{item.BE,jdbcType=VARCHAR},
+			#{item.GP,jdbcType=VARCHAR},
+			#{item.AF,jdbcType=VARCHAR},
+			#{item.BF,jdbcType=VARCHAR},
+			#{item.CA,jdbcType=VARCHAR},
+			#{item.TI,jdbcType=VARCHAR},
+			#{item.SO,jdbcType=VARCHAR},
+			#{item.SE,jdbcType=VARCHAR},
+			#{item.BS,jdbcType=VARCHAR},
+			#{item.LA,jdbcType=VARCHAR},
+			#{item.DT,jdbcType=VARCHAR},
+			#{item.CT,jdbcType=VARCHAR},
+			#{item.CY,jdbcType=VARCHAR},
+			#{item.CL,jdbcType=VARCHAR},
+			#{item.SP,jdbcType=VARCHAR},
+			#{item.HO,jdbcType=VARCHAR},
+			#{item.DE,jdbcType=VARCHAR},
+			#{item.ID,jdbcType=VARCHAR},
+			#{item.AB,jdbcType=VARCHAR},
+			#{item.C1,jdbcType=VARCHAR},
+			#{item.RP,jdbcType=VARCHAR},
+			#{item.EM,jdbcType=VARCHAR},
+			#{item.RI,jdbcType=VARCHAR},
+			#{item.OI,jdbcType=VARCHAR},
+			#{item.FU,jdbcType=VARCHAR},
+			#{item.FX,jdbcType=VARCHAR},
+			#{item.CR,jdbcType=VARCHAR},
+			#{item.NR,jdbcType=VARCHAR},
+			#{item.TC,jdbcType=VARCHAR},
+			#{item.Z9,jdbcType=VARCHAR},
+			#{item.U1,jdbcType=VARCHAR},
+			#{item.U2,jdbcType=VARCHAR},
+			#{item.PU,jdbcType=VARCHAR},
+			#{item.PI,jdbcType=VARCHAR},
+			#{item.PA,jdbcType=VARCHAR},
+			#{item.SN,jdbcType=VARCHAR},
+			#{item.EI,jdbcType=VARCHAR},
+			#{item.BN,jdbcType=VARCHAR},
+			#{item.J9,jdbcType=VARCHAR},
+			#{item.JI,jdbcType=VARCHAR},
+			#{item.PD,jdbcType=VARCHAR},
+			#{item.PY,jdbcType=VARCHAR},
+			#{item.VL,jdbcType=VARCHAR},
+			#{item.IS,jdbcType=VARCHAR},
+			#{item.PN,jdbcType=VARCHAR},
+			#{item.SU,jdbcType=VARCHAR},
+			#{item.SI,jdbcType=VARCHAR},
+			#{item.MA,jdbcType=VARCHAR},
+			#{item.BP,jdbcType=VARCHAR},
+			#{item.EP,jdbcType=VARCHAR},
+			#{item.AR,jdbcType=VARCHAR},
+			#{item.DI,jdbcType=VARCHAR},
+			#{item.D2,jdbcType=VARCHAR},
+			#{item.EA,jdbcType=VARCHAR},
+			#{item.EY,jdbcType=VARCHAR},
+			#{item.PG,jdbcType=VARCHAR},
+			#{item.WC,jdbcType=VARCHAR},
+			#{item.SC,jdbcType=VARCHAR},
+			#{item.GA,jdbcType=VARCHAR},
+			#{item.UT,jdbcType=VARCHAR},
+			#{item.PM,jdbcType=VARCHAR},
+			#{item.OA,jdbcType=VARCHAR},
+			#{item.HC,jdbcType=VARCHAR},
+			#{item.HP,jdbcType=VARCHAR},
+			#{item.DA,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+</mapper>

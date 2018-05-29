@@ -2,13 +2,16 @@ package wos_export;
 
 import common.http.HtmlInfo;
 import common.http.SimpleHttp;
+import common.system.AppContext;
 import common.system.FileOperation;
 import common.system.StringProcess;
 import common.system.SystemCommon;
 import org.apache.log4j.Logger;
 import org.json.HTTP;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -47,7 +50,10 @@ public class WosExport {
 
 
     }
-
+    @Before
+    public void start(){
+        AppContext.initial();
+    }
 
 
     public void testMain_downData() throws  Exception{
@@ -156,13 +162,6 @@ public class WosExport {
 
 
         }
-
-
-
-
-
-
-
 
     }
 
@@ -373,6 +372,7 @@ public class WosExport {
         }
         return sortedMap;
     }
+
 }
 class MapValueComparator implements Comparator<Map.Entry<String, Integer>> {
 
@@ -382,3 +382,5 @@ class MapValueComparator implements Comparator<Map.Entry<String, Integer>> {
         return 0-me1.getValue().compareTo(me2.getValue());
     }
 }
+
+

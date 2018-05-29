@@ -1,10 +1,7 @@
 package common.system;
 
 import common.mapper.IntelligentTyresMapper;
-import common.service.AssociationConferenceService;
-import common.service.CommonService;
-import common.service.HotSearchService;
-import common.service.IntelligentTyresService;
+import common.service.*;
 
 
 public class Systemconfig {
@@ -19,6 +16,9 @@ public class Systemconfig {
 
 
     public  static IntelligentTyresService intelligentTyresService;
+
+
+    public static WosExportService wosExportService;
 
     public void initial(){
 
@@ -58,5 +58,14 @@ public class Systemconfig {
 
     public void setIntelligentTyresService(IntelligentTyresService intelligentTyresService) {
         Systemconfig.intelligentTyresService = intelligentTyresService;
+    }
+
+
+    public WosExportService getWosExportService() {
+        return wosExportService;
+    }
+
+    public void setWosExportService(WosExportService wosExportService) {
+        Systemconfig.wosExportService = wosExportService;
     }
 }
