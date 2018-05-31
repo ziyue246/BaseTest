@@ -14,4 +14,7 @@ public interface WosExportMapper {
     public void insertWosExportPaper(WosExportData wosExportData);
     public void insertWosExportPaperByBatch(@Param("wosExportDatas") List<WosExportData> wosExportDatas);
 
+    public List<WosExportData> getWosExportPapers( );
+
+
 }

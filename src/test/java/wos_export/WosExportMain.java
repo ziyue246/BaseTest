@@ -173,15 +173,143 @@ public class WosExportMain {
         for(WosExportData WosExportData :wosExports){
             wosExports_tmp.add(WosExportData);
             if(wosExports_tmp.size()>1000){
-                Systemconfig.wosExportService.saveDates(wosExports_tmp);
+                Systemconfig.wosExportService.saveDatas(wosExports_tmp);
                 wosExports_tmp.clear();
             }
             //Systemconfig.wosExportService.saveDate(WosExportData);
         }
-        Systemconfig.wosExportService.saveDates(wosExports_tmp);
+        Systemconfig.wosExportService.saveDatas(wosExports_tmp);
         logger.info("write db success");
     }
 
+    @Test
+    public void testMain_processData() throws  Exception{
+
+        List<WosExportData> wosExportDatas = Systemconfig.wosExportService.getDatas();
+
+//        AF（作者全称）  Araujo, Ricardo de A.; Oliveira, Adriano L. I.; Meira, Silvio
+//        C1（机构）[Araujo, Ricardo de A.] Inst Fed Sertao Parnambucano, Petrolina, PE, Brazil; [Oliveira, Adriano L. I.; Meira, Silvio] Univ Fed Pernambuco, Ctr Informat, Recife, PE, Brazil
+//        RP（通讯作者） Araujo, RD (reprint author), Inst Fed Sertao Parnambucano, Petrolina, PE, Brazil.
+//        TC（被引)
+
+        Map<String,Integer> authorPaperCountMap = new HashMap<>();
+        Map<String,Integer> institutionPaperCountMap = new HashMap<>();
+        Map<String,Integer> authorPaperCitesMap = new HashMap<>();
+        Map<String,Integer> institutionPaperCitesMap = new HashMap<>();
+
+        for(WosExportData  data : wosExportDatas){
+
+            String authorStr = data.getAF();//data.get("AF");
+            //logger.info("authorStr:"+authorStr);
+            String institutionStr = data.getC1();
+
+
+
+            //logger.info("institutionStr:"+institutionStr);
+            String citeStr = data.getTC();//data.get("TC");
+            int citeNum = StringProcess.str2Int(citeStr);
+
+            if(authorStr!=null) {
+                String[] authors = authorStr.split(";");
+                for (String author : authors) {
+                    author = author.trim();
+                    if (authorPaperCountMap.containsKey(author)) {
+                        authorPaperCountMap.put(author, authorPaperCountMap.get(author) + 1);
+                    } else {
+                        authorPaperCountMap.put(author, 1);
+                    }
+                    if (authorPaperCitesMap.containsKey(author)) {
+                        authorPaperCitesMap.put(author, authorPaperCitesMap.get(author) + citeNum);
+                    } else {
+                        authorPaperCitesMap.put(author, citeNum);
+                    }
+                }
+            }
+            if(institutionStr!=null) {
+                Set<String> institutionList = institutionProcess(institutionStr);
+                for (String institution : institutionList) {
+                    institution = institution.trim();
+                    if (institutionPaperCitesMap.containsKey(institution)) {
+                        institutionPaperCitesMap.put(institution, institutionPaperCitesMap.get(institution) + citeNum);
+                    } else {
+                        institutionPaperCitesMap.put(institution, citeNum);
+                    }
+                    if (institutionPaperCountMap.containsKey(institution)) {
+                        institutionPaperCountMap.put(institution, institutionPaperCountMap.get(institution) + 1);
+                    } else {
+                        institutionPaperCountMap.put(institution, 1);
+                    }
+                }
+            }
+        }
+        logger.info("author count over");
+        logger.info("institution count over");
+
+        authorPaperCountMap= SystemCommon.sortMapByValue(authorPaperCountMap);
+        logger.info("authorPaperCountMap sort over");
+        institutionPaperCountMap= SystemCommon.sortMapByValue(institutionPaperCountMap);
+        logger.info("institutionPaperCountMap sort over");
+        authorPaperCitesMap= SystemCommon.sortMapByValue(authorPaperCitesMap);
+        logger.info("authorPaperCitesMap sort over");
+        institutionPaperCitesMap= SystemCommon.sortMapByValue(institutionPaperCitesMap);
+        logger.info("institutionPaperCitesMap sort over");
+
+
+        for(String key : authorPaperCountMap.keySet()){
+            String line = key+"\t"+authorPaperCountMap.get(key)+"\n";
+            String filePath_tmp = "file/wos_export/authorPaperCount.txt";
+            FileOperation.write(line,filePath_tmp,true);
+        }logger.info("authorPaperCount wirte file over");
+
+        for(String key : institutionPaperCountMap.keySet()){
+            String line = key+"\t"+institutionPaperCountMap.get(key)+"\n";
+            String filePath_tmp = "file/wos_export/institutionPaperCount.txt";
+            FileOperation.write(line,filePath_tmp,true);
+        }logger.info("institutionPaperCount wirte file over");
+
+
+        for(String key : authorPaperCitesMap.keySet()){
+            String line = key+"\t"+authorPaperCitesMap.get(key)+"\n";
+            String filePath_tmp = "file/wos_export/authorPaperCites.txt";
+            FileOperation.write(line,filePath_tmp,true);
+        }logger.info("authorPaperCites wirte file over");
+
+
+        for(String key : institutionPaperCitesMap.keySet()){
+            String line = key+"\t"+institutionPaperCitesMap.get(key)+"\n";
+            String filePath_tmp = "file/wos_export/institutionPaperCites.txt";
+            FileOperation.write(line,filePath_tmp,true);
+        }logger.info("institutionPaperCites wirte file over");
+
+    }
+
+
+    private Set<String> institutionProcess(String institutionStr){
+        //        C1（机构）[Araujo, Ricardo de A.] Inst Fed Sertao Parnambucano, Petrolina, PE, Brazil;
+        // [Oliveira, Adriano L. I.; Meira, Silvio] Univ Fed Pernambuco, Ctr Informat, Recife, PE, Brazil
+
+        Set<String> instituionList = new HashSet<>();
+        String []institutions = institutionStr.split(";");
+        for(String insti:institutions){
+            //Chinese Acad Sci
+//            if(insti.contains("Tsinghua Univ")){
+//                System.out.print("111");
+//                System.out.println(insti);
+//            }
+
+            if(!insti.contains("]"))continue;
+            insti = insti.split("]")[1].trim();
+            //Chinese Acad Sci, Inst Soil Sci,
+            if(insti.startsWith("Chinese Acad Sci")){
+                insti = "Chinese Acad Sci,"+insti.split(",")[1];
+            }else{
+                insti = insti.split(",")[0];
+            }
+            instituionList.add(insti);
+        }
+        return instituionList;
+
+    }
 
     @After
     public void end(){

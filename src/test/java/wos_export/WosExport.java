@@ -167,7 +167,7 @@ public class WosExport {
 
 
     @Test
-    public void testMain_processData() throws  Exception{
+    public void testMain_processData_fromDB() throws  Exception{
 
 
 
@@ -286,13 +286,13 @@ public class WosExport {
         logger.info("author count over");
         logger.info("institution count over");
 
-        authorPaperCountMap= sortMapByValue(authorPaperCountMap);
+        authorPaperCountMap= SystemCommon.sortMapByValue(authorPaperCountMap);
         logger.info("authorPaperCountMap sort over");
-        institutionPaperCountMap= sortMapByValue(institutionPaperCountMap);
+        institutionPaperCountMap= SystemCommon.sortMapByValue(institutionPaperCountMap);
         logger.info("institutionPaperCountMap sort over");
-        authorPaperCitesMap= sortMapByValue(authorPaperCitesMap);
+        authorPaperCitesMap= SystemCommon.sortMapByValue(authorPaperCitesMap);
         logger.info("authorPaperCitesMap sort over");
-        institutionPaperCitesMap= sortMapByValue(institutionPaperCitesMap);
+        institutionPaperCitesMap= SystemCommon.sortMapByValue(institutionPaperCitesMap);
         logger.info("institutionPaperCitesMap sort over");
 
 
@@ -325,7 +325,164 @@ public class WosExport {
 
     }
 
+    @Test
+    public void testMain_processData() throws  Exception{
 
+
+
+        String DATA_TYPE="6k";
+        DATA_TYPE = "6w";
+        String  filePath = "file/wos_export/wos_export_"+DATA_TYPE+"-2018-5-25.txt";
+
+        String content = FileOperation.read(filePath);
+        logger.info("read data content");
+        String []lines=content.split("\n");
+
+
+        ArrayList<String> titleList = new ArrayList<>();
+
+        ArrayList<Map<String,String>> datas = new ArrayList<>();
+        for(int i=0;i<lines.length;++i){
+
+            String line = lines[i];
+            line  = line.trim();
+            if(line.length()<5||
+                    (line.startsWith("PT")&&line.startsWith("AU")
+                            &&line.startsWith("BA")&&line.startsWith("BE"))){
+                continue;
+            }
+            String []words = line.split("\t");
+
+            if(i==0){
+                for(int j=0;j<words.length;j++){
+                    String word = words[j].trim();
+                    titleList.add(word);
+                }
+            }else{
+                Map<String,String> data = new HashMap<>();
+                datas.add(data);
+                for(int j=0;j<words.length;j++){
+                    String word = words[j].trim();
+                    if(!titleList.get(j).equals(word)) {
+                        data.put(titleList.get(j), word);
+                    }
+                }
+            }
+        }
+        logger.info("data count:"+datas.size());
+
+
+//        AF（作者全称）  Araujo, Ricardo de A.; Oliveira, Adriano L. I.; Meira, Silvio
+//        C1（机构）[Araujo, Ricardo de A.] Inst Fed Sertao Parnambucano, Petrolina, PE, Brazil; [Oliveira, Adriano L. I.; Meira, Silvio] Univ Fed Pernambuco, Ctr Informat, Recife, PE, Brazil
+//        RP（通讯作者） Araujo, RD (reprint author), Inst Fed Sertao Parnambucano, Petrolina, PE, Brazil.
+//        TC（被引)
+
+
+        Map<String,Integer> authorPaperCountMap = new HashMap<>();
+        Map<String,Integer> institutionPaperCountMap = new HashMap<>();
+        Map<String,Integer> authorPaperCitesMap = new HashMap<>();
+        Map<String,Integer> institutionPaperCitesMap = new HashMap<>();
+
+
+        for(Map<String,String> data : datas){
+            if(!data.containsKey("TI")) {
+                continue;
+            }
+
+
+            String authorStr = data.get("AF");
+            //logger.info("authorStr:"+authorStr);
+            String institutionStr = data.get("C1");
+            if(institutionStr!=null&&institutionStr.contains("Tsinghua Univ")){
+                if(data.containsKey("TI")) {
+                    System.out.println("Tsinghua Univ title:" + data.get("TI") + ",,,");
+                }
+            }
+
+            if(institutionStr!=null&&institutionStr.split("Tsinghua Univ").length>2){
+                if(data.containsKey("TI")) {
+                    System.out.println("111Tsinghua Univ title:" + data.get("TI") + ",,,");
+                }
+            }
+            //logger.info("institutionStr:"+institutionStr);
+            String citeStr = data.get("TC");
+
+            int citeNum = StringProcess.str2Int(citeStr);
+
+            if(authorStr!=null) {
+                String[] authors = authorStr.split(";");
+                for (String author : authors) {
+                    author = author.trim();
+                    if (authorPaperCountMap.containsKey(author)) {
+                        authorPaperCountMap.put(author, authorPaperCountMap.get(author) + 1);
+                    } else {
+                        authorPaperCountMap.put(author, 1);
+                    }
+                    if (authorPaperCitesMap.containsKey(author)) {
+                        authorPaperCitesMap.put(author, authorPaperCitesMap.get(author) + citeNum);
+                    } else {
+                        authorPaperCitesMap.put(author, citeNum);
+                    }
+                }
+            }
+            if(institutionStr!=null) {
+                Set<String> institutionList = institutionProcess(institutionStr);
+                for (String institution : institutionList) {
+                    institution = institution.trim();
+                    if (institutionPaperCitesMap.containsKey(institution)) {
+                        institutionPaperCitesMap.put(institution, institutionPaperCitesMap.get(institution) + citeNum);
+                    } else {
+                        institutionPaperCitesMap.put(institution, citeNum);
+                    }
+                    if (institutionPaperCountMap.containsKey(institution)) {
+                        institutionPaperCountMap.put(institution, institutionPaperCountMap.get(institution) + 1);
+                    } else {
+                        institutionPaperCountMap.put(institution, 1);
+                    }
+                }
+            }
+        }
+        logger.info("author count over");
+        logger.info("institution count over");
+
+        authorPaperCountMap= SystemCommon.sortMapByValue(authorPaperCountMap);
+        logger.info("authorPaperCountMap sort over");
+        institutionPaperCountMap= SystemCommon.sortMapByValue(institutionPaperCountMap);
+        logger.info("institutionPaperCountMap sort over");
+        authorPaperCitesMap= SystemCommon.sortMapByValue(authorPaperCitesMap);
+        logger.info("authorPaperCitesMap sort over");
+        institutionPaperCitesMap= SystemCommon.sortMapByValue(institutionPaperCitesMap);
+        logger.info("institutionPaperCitesMap sort over");
+
+
+
+        for(String key : authorPaperCountMap.keySet()){
+            String line = key+"\t"+authorPaperCountMap.get(key)+"\n";
+            String filePath_tmp = "file/wos_export/authorPaperCount_"+DATA_TYPE+".txt";
+            FileOperation.write(line,filePath_tmp,true);
+        }logger.info("authorPaperCount wirte file over");
+
+        for(String key : institutionPaperCountMap.keySet()){
+            String line = key+"\t"+institutionPaperCountMap.get(key)+"\n";
+            String filePath_tmp = "file/wos_export/institutionPaperCount_"+DATA_TYPE+".txt";
+            FileOperation.write(line,filePath_tmp,true);
+        }logger.info("institutionPaperCount wirte file over");
+
+
+        for(String key : authorPaperCitesMap.keySet()){
+            String line = key+"\t"+authorPaperCitesMap.get(key)+"\n";
+            String filePath_tmp = "file/wos_export/authorPaperCites_"+DATA_TYPE+".txt";
+            FileOperation.write(line,filePath_tmp,true);
+        }logger.info("authorPaperCites wirte file over");
+
+
+        for(String key : institutionPaperCitesMap.keySet()){
+            String line = key+"\t"+institutionPaperCitesMap.get(key)+"\n";
+            String filePath_tmp = "file/wos_export/institutionPaperCites_"+DATA_TYPE+".txt";
+            FileOperation.write(line,filePath_tmp,true);
+        }logger.info("institutionPaperCites wirte file over");
+
+    }
 
     private Set<String> institutionProcess(String institutionStr){
         //        C1（机构）[Araujo, Ricardo de A.] Inst Fed Sertao Parnambucano, Petrolina, PE, Brazil;
@@ -355,32 +512,9 @@ public class WosExport {
     }
 
 
-    public Map<String, Integer> sortMapByValue(Map<String, Integer> oriMap) {
-        if (oriMap == null || oriMap.isEmpty()) {
-            return null;
-        }
-        Map<String, Integer> sortedMap = new LinkedHashMap<>();
-        List<Map.Entry<String, Integer>> entryList = new ArrayList<Map.Entry<String, Integer>>(
-                oriMap.entrySet());
-        Collections.sort(entryList, new MapValueComparator());
 
-        Iterator<Map.Entry<String, Integer>> iter = entryList.iterator();
-        Map.Entry<String, Integer> tmpEntry = null;
-        while (iter.hasNext()) {
-            tmpEntry = iter.next();
-            sortedMap.put(tmpEntry.getKey(), tmpEntry.getValue());
-        }
-        return sortedMap;
-    }
 
 }
-class MapValueComparator implements Comparator<Map.Entry<String, Integer>> {
 
-    @Override
-    public int compare(Map.Entry<String, Integer> me1, Map.Entry<String, Integer> me2) {
-
-        return 0-me1.getValue().compareTo(me2.getValue());
-    }
-}
 
 

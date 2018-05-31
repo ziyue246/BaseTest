@@ -30,8 +30,13 @@ public class WosExportService {
         wosExportMapper.insertWosExportPaper(wosExportData);
     }
 
-    public void saveDates(List<WosExportData> wosExportDatas ){
+    public void saveDatas(List<WosExportData> wosExportDatas ){
 
         wosExportMapper.insertWosExportPaperByBatch(wosExportDatas);
+    }
+
+
+    public List<WosExportData>  getDatas( ){
+        return wosExportMapper.getWosExportPapers();
     }
 }

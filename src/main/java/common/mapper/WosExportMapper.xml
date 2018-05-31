@@ -6,34 +6,88 @@
 <mapper namespace="common.mapper.WosExportMapper">
 
 
-	<!--<resultMap id="NewsResultMap" type="common.pojo.NewsData" >-->
-		<!--<id column="ID" 				            property="ID"  jdbcType="INTEGER" />-->
+	<resultMap id="WosExportPapersMap" type="common.pojo.WosExportData" >
+		<id column="ID" 	 property="ID"  jdbcType="INTEGER" />
 
-		<!--<result column="ID"		property="ID"					jdbcType="INTEGER" />-->
-		<!--<result column="TITLE"		property="TITLE"				jdbcType="VARCHAR" />-->
-		<!--<result column="AUTHOR"		property="AUTHOR"				jdbcType="VARCHAR" />-->
-		<!--<result column="SITE_ID"	property="SITE_ID"				jdbcType="INTEGER" />-->
-		<!--<result column="PUBTIME"	property="PUBTIME"				jdbcType="TIMESTAMP" />-->
-		<!--<result column="URL"		property="URL"					jdbcType="VARCHAR" />-->
-		<!--<result column="SEARCH_KEYWORD"		property="SEARCH_KEYWORD"		jdbcType="VARCHAR" />-->
-		<!--<result column="SOURCE"			property="SOURCE"			jdbcType="VARCHAR" />-->
-		<!--<result column="CATEGORY_CODE"		property="CATEGORY_CODE"		jdbcType="VARCHAR" />-->
-		<!--<result column="INSERTTIME"		property="INSERTTIME"			jdbcType="TIMESTAMP" />-->
-		<!--<result column="MD5"			property="MD5"				jdbcType="VARCHAR" />-->
-		<!--<result column="CONTENT"		property="CONTENT"			jdbcType="VARCHAR" />-->
-		<!--<result column="BRIEF"			property="BRIEF"			jdbcType="VARCHAR" />-->
-		<!--<result column="IMG_URL"		property="IMG_URL"			jdbcType="VARCHAR" />-->
-		<!--<result column="SAME_NUM"		property="SAME_NUM"			jdbcType="VARCHAR" />-->
-		<!--<result column="SAME_URL"		property="SAME_URL"			jdbcType="INTEGER" />-->
-		<!--<result column="OLD_ID"			property="OLD_ID"			jdbcType="INTEGER" />-->
+		<result column="ID"	 property="ID"	   jdbcType="INTEGER" />
+		<result column="PT"  property="PT"     jdbcType="VARCHAR" />
+		<result column="AU"  property="AU"     jdbcType="VARCHAR" />
+		<result column="BA"  property="BA"     jdbcType="VARCHAR" />
+		<result column="BE"  property="BE"     jdbcType="VARCHAR" />
+		<result column="GP"  property="GP"     jdbcType="VARCHAR" />
+		<result column="AF"  property="AF"     jdbcType="VARCHAR" />
+		<result column="BF"  property="BF"     jdbcType="VARCHAR" />
+		<result column="CA"  property="CA"     jdbcType="VARCHAR" />
+		<result column="TI"  property="TI"     jdbcType="VARCHAR" />
+		<result column="SO"  property="SO"     jdbcType="VARCHAR" />
+		<result column="SE"  property="SE"     jdbcType="VARCHAR" />
+		<result column="BS"  property="BS"     jdbcType="VARCHAR" />
+		<result column="LA"  property="LA"     jdbcType="VARCHAR" />
+		<result column="DT"  property="DT"     jdbcType="VARCHAR" />
+		<result column="CT"  property="CT"     jdbcType="VARCHAR" />
+		<result column="CY"  property="CY"     jdbcType="VARCHAR" />
+		<result column="CL"  property="CL"     jdbcType="VARCHAR" />
+		<result column="SP"  property="SP"     jdbcType="VARCHAR" />
+		<result column="HO"  property="HO"     jdbcType="VARCHAR" />
+		<result column="DE"  property="DE"     jdbcType="VARCHAR" />
+		<result column="ID"  property="ID"     jdbcType="VARCHAR" />
+		<result column="AB"  property="AB"     jdbcType="VARCHAR" />
+		<result column="C1"  property="C1"     jdbcType="VARCHAR" />
+		<result column="RP"  property="RP"     jdbcType="VARCHAR" />
+		<result column="EM"  property="EM"     jdbcType="VARCHAR" />
+		<result column="RI"  property="RI"     jdbcType="VARCHAR" />
+		<result column="OI"  property="OI"     jdbcType="VARCHAR" />
+		<result column="FU"  property="FU"     jdbcType="VARCHAR" />
+		<result column="FX"  property="FX"     jdbcType="VARCHAR" />
+		<result column="CR"  property="CR"     jdbcType="VARCHAR" />
+		<result column="NR"  property="NR"     jdbcType="VARCHAR" />
+		<result column="TC"  property="TC"     jdbcType="VARCHAR" />
+		<result column="Z9"  property="Z9"     jdbcType="VARCHAR" />
+		<result column="U1"  property="U1"     jdbcType="VARCHAR" />
+		<result column="U2"  property="U2"     jdbcType="VARCHAR" />
+		<result column="PU"  property="PU"     jdbcType="VARCHAR" />
+		<result column="PI"  property="PI"     jdbcType="VARCHAR" />
+		<result column="PA"  property="PA"     jdbcType="VARCHAR" />
+		<result column="SN"  property="SN"     jdbcType="VARCHAR" />
+		<result column="EI"  property="EI"     jdbcType="VARCHAR" />
+		<result column="BN"  property="BN"     jdbcType="VARCHAR" />
+		<result column="J9"  property="J9"     jdbcType="VARCHAR" />
+		<result column="JI"  property="JI"     jdbcType="VARCHAR" />
+		<result column="PD"  property="PD"     jdbcType="VARCHAR" />
+		<result column="PY"  property="PY"     jdbcType="VARCHAR" />
+		<result column="VL"  property="VL"     jdbcType="VARCHAR" />
+		<result column="IS"  property="IS"     jdbcType="VARCHAR" />
+		<result column="PN"  property="PN"     jdbcType="VARCHAR" />
+		<result column="SU"  property="SU"     jdbcType="VARCHAR" />
+		<result column="SI"  property="SI"     jdbcType="VARCHAR" />
+		<result column="MA"  property="MA"     jdbcType="VARCHAR" />
+		<result column="BP"  property="BP"     jdbcType="VARCHAR" />
+		<result column="EP"  property="EP"     jdbcType="VARCHAR" />
+		<result column="AR"  property="AR"     jdbcType="VARCHAR" />
+		<result column="DI"  property="DI"     jdbcType="VARCHAR" />
+		<result column="D2"  property="D2"     jdbcType="VARCHAR" />
+		<result column="EA"  property="EA"     jdbcType="VARCHAR" />
+		<result column="EY"  property="EY"     jdbcType="VARCHAR" />
+		<result column="PG"  property="PG"     jdbcType="VARCHAR" />
+		<result column="WC"  property="WC"     jdbcType="VARCHAR" />
+		<result column="SC"  property="SC"     jdbcType="VARCHAR" />
+		<result column="GA"  property="GA"     jdbcType="VARCHAR" />
+		<result column="UT"  property="UT"     jdbcType="VARCHAR" />
+		<result column="PM"  property="PM"     jdbcType="VARCHAR" />
+		<result column="OA"  property="OA"     jdbcType="VARCHAR" />
+		<result column="HC"  property="HC"     jdbcType="VARCHAR" />
+		<result column="HP"  property="HP"     jdbcType="VARCHAR" />
+		<result column="DA"  property="DA"     jdbcType="VARCHAR" />
 
-	<!--</resultMap>-->
 
-	<!--<select id="getInternationalConference"  resultMap="ConferenceDateMap">-->
-		<!--select * from international_conference-->
+	</resultMap>
 
-	<!--</select>-->
 
+
+
+	<select id="getWosExportPapers"  resultMap="WosExportPapersMap">
+		select * from wos_data
+	</select>
 
 
 
