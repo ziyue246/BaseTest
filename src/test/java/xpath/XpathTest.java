@@ -239,6 +239,12 @@ public class XpathTest {
 		xpath = //"//DIV[@class='create-cite-report']
 				"//DIV[@id='view_citation_report_image']//DIV[@class='summary_CitCount']//A/@href";
 		//summary_CitCount
+
+
+
+		xpath="//DIV[@class='flex-column']/DIV[@class='card-box']/DIV[0]/DIV[contains(@style,'width')]";
+		xpath="//DIV[@class='flex-column']//DIV[@style='width: 115px;']//SPAN[@class='large-number']";
+		xpath="//DIV[@class='flex-column']//DIV[@style='width: 100px;']//SPAN[@class='large-number']";
 		NodeList nl = DomTree.commonList(xpath, node);
 	    
 	    System.out.println(nl.getLength());
@@ -252,10 +258,6 @@ public class XpathTest {
 
 
 
-		System.out.println("1,"+StringProcess.regex2StrSplitByMark(content,"\"raw_tc_data\".*?\n?.*?}","#"));
-
-		System.out.println("2,"+content.split("raw_tc_data")[1]
-				.split("}")[0].split("\\{")[1]);
 	}
 
 
