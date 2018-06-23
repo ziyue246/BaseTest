@@ -62,19 +62,19 @@ public class SystemCommon {
 	public static void printList(List<? extends Object> list){
 		int count = 0;
 		for (Object obj:list) {
-			printLog((++count)+"\t"+obj);
+			logger.info((++count)+"\t"+obj);
 		}
 	}
 	public static void printMap(Object obj){
 		Map<? extends Object,? extends Object> map = (HashMap<? extends Object,? extends Object>)obj;
 		Set<? extends Object>  keySet = map.keySet();
 		for (Object key :keySet) {
-			printLog(key+"\t:\t"+map.get(key));
+			logger.info(key+"\t:\t"+map.get(key));
 		}
 	}
 	public static void printHeaders(Header []heads){
         for (Header header : heads) {
-        	printLog(header.getName()+"\t:\t"+header.getValue());
+			logger.info(header.getName()+"\t:\t"+header.getValue());
 		}
 	}
 	public static int getMonth(String month){
@@ -171,6 +171,8 @@ public class SystemCommon {
 		}
 		return sortedMap;
 	}
+
+
 }
 class MapValueComparator implements Comparator<Map.Entry<String, Integer>> {
 
