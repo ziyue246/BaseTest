@@ -5,9 +5,13 @@ import common.http.SimpleHttp;
 import common.system.FileOperation;
 import common.system.StringProcess;
 import common.utils.DomTree;
+import common.utils.StringUtil;
 import org.junit.Test;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.NodeList;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class XpathTest {
 	
@@ -267,54 +271,61 @@ public class XpathTest {
 
 	@Test
 	public void testMian_jinritoutiao(){
-//		HtmlInfo html = new HtmlInfo();
-//		SimpleHttp http = new SimpleHttp();
-//
-//		String url = "http://weixin.sogou.com/weixin?query=%E9%9D%92%E5%B2%9B%E6%97%A9%E6%8A%A5&type=1";
-//
-//		url="http://club.xihaiannews.com/forum-58-1.html";
-//		html.setOrignUrl(url);
-//
-//		String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36";
-//		html.setUa(ua);
-//
-//		http.simpleGet(html);
 
-		String path  = "C:/Users/Administrator/Desktop/2.html";
+
+		String path  = "C:/Users/lenovo/Desktop/1.html";
 		String content = FileOperation.read(path);
 
-		//content = html.getContent();
-		//System.out.println(content);
-		//System.out.println("��������");
-//
-//		//String content = html.getContent();
 
-		//article-content
 		String xpathContent = "//DIV[contains(@class,'content')]//P|"
 				+ "//ARTICLE//P|//DIV[contains(@id,'ext')]//P|" + "//FIGURE/FIGCAPTION";
-		DocumentFragment node = DomTree.getNode(content, "gbk");
-			//class="s xst"
+		DocumentFragment node = DomTree.getNode(content, "utf-8");
+
 		String xpath = "//TBODY/TR//TH//A[@class='s xst']/@href";//"//DIV/P";
 
-
-		//<td class="fr_address_row2">  <p class="FR_field">
-
-		//<span class="FR_label">Reprint Address:
-		xpath="//SPAN[@class='FR_label'][contains(.,'Reprint Address')]";//[contains(.,'ͨѶ����')]/@href";
-		//class="fr_address_row2">
-
-
-		//<div class="sourinfo">
-		xpath="//DIV[@class='sourinfo']/P[contains(.,'ISSN')]";//[contains(.,'ͨѶ����')]/@href";
 		xpath="//DIV[@class='sourinfo']/P/A[contains(.,'20')][contains(.,'10')]";
+
+		xpath="//DIV[@class='sourinfo']/P/A[contains(.,'20')][contains(.,'10')]";
+
+
+		xpath = "//DIV[@class='gs_rs']";  //href cites=
+		xpath = "//DIV[@class='gs_fl']//A[contains(@href,'cites=')]";
+		//xpath="//DIV[@class='gs_r gs_or gs_scl']";
+		//		//<div class="gs_r gs_or gs_scl"
+		//<div class="gs_rs">
+
+		xpath = "//TR[@align='center']//TD[@align='left']/A/@href";
+		xpath = "//H3[@class='gs_rt']";//lass="gs_rt"
+		xpath = "//DIV[@class='gs_a']/A|//DIV[@class='gs_a']/A/@href";
+		xpath = "//DIV[@class='gs_a']/A";
+		xpath = "//DIV[@class='gs_fl']//A[contains(@href,'cites=')]";
 		NodeList nl = DomTree.commonList(xpath, node);
 
 
 
 		for(int i=0;i<nl.getLength();i++){
-			//System.out.println((i+1)+":"+nl.item(i).getNextSibling().getTextContent());
-			System.out.println((i+1)+":"+nl.item(i).getTextContent());
+			String item = nl.item(i).getTextContent();
+
+			String itemhref = nl.item(i).getAttributes().getNamedItem("href").getTextContent();
+			//String year = StringUtil.extractOne(item,"(19|20)\\d{2}");  /
+			String citeNum = StringUtil.extractOne(item,"\\d*\\d");
+
+//			System.out.println((i+1)+":"+item);
+//			System.out.println((i+1)+":"+itemhref);
+//			System.out.println((i+1)+":"+citeNum);
+
+			//System.out.println(item);
+			//System.out.println(year);
+			//System.out.println(citeNum);
+
 		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+
+		System.out.println("year"+calendar.get(Calendar.YEAR));
+
+
+
 
 	}
 }

@@ -3,7 +3,13 @@ package common.system;
 
 import jxl.*;
 import jxl.read.biff.BiffException;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.egothor.stemmer.Row;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -13,8 +19,8 @@ public class ExcelOperation {
 
 
     private  static Logger logger = Logger.getLogger(ExcelOperation.class);
-
-
+    private static final String EXCEL_XLS = "xls";
+    private static final String EXCEL_XLSX = "xlsx";
     // 去读Excel的方法readExcel，该方法的入口参数为一个File对象
     public static List readExcel(File file) {
         try {
@@ -117,5 +123,27 @@ public class ExcelOperation {
             logger.error(e.getMessage());
         }
         return null;
+    }
+
+
+
+
+    public static  void write() throws Exception
+    {
+        File xlsFile = new File("config/jxl.xls");
+        // 创建一个工作簿
+        WritableWorkbook workbook = Workbook.createWorkbook(xlsFile);
+        // 创建一个工作表
+        WritableSheet sheet = workbook.createSheet("sheet1", 0);
+        for (int row = 0; row < 10; row++)
+        {
+            for (int col = 0; col < 10; col++)
+            {
+                // 向工作表中添加数据
+                sheet.addCell(new Label(col, row, "data" + row + col));
+            }
+        }
+        workbook.write();
+        workbook.close();
     }
 }

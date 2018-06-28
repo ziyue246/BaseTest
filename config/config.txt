@@ -1,0 +1,6 @@
+searchTopKeyNum=30
+mysqlHost=192.168.3.78:3306
+mysqlDatabaseName=junkewei
+mysqlUserName=pxqb
+mysqlPassword=1!p@ssword
+httpProxy=127.0.0.1:9666

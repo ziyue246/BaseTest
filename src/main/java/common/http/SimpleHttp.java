@@ -313,6 +313,7 @@ public class SimpleHttp {
 			get = new HttpGet(html.getOrignUrl().startsWith("http") ? html.getOrignUrl() : "https://" + html.getOrignUrl());
 			if (html.getProxy() != null) {
 				//设置get请求代理
+				logger.info("proxy : "+html.getProxy());
 				RequestConfig config = setProxy(client, html.getProxy());
 				get.setConfig(config);
 			}
