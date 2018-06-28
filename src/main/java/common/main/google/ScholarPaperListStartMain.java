@@ -203,7 +203,4 @@ public class ScholarPaperListStartMain {
             data.setTitle(itemContent);
         }
     }
-
-
-
 }

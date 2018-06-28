@@ -71,7 +71,7 @@ public class SaveDataToSql {
             Statement stmt = conn.createStatement();
 
             String sql_model = "insert into googlePaperYearsCite(title,authors,pubYear,citeNum,citeUrl,yearsCite) " +
-                    "values ('<title>',<authors>,<pubYear>,<citeNum>,'<citeUrl>',<yearsCite>)";
+                    "values ('<title>',<authors>,<pubYear>,<citeNum>,<citeUrl>,<yearsCite>)";
 
             // 创建数据库中的表，
 

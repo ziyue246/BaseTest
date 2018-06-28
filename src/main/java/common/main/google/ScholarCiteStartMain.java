@@ -23,22 +23,12 @@ public class ScholarCiteStartMain {
     private static HtmlInfo html = new HtmlInfo();
 
     public static void main(String []arg) throws  Exception{
-
         Config.init();
         final String entrance_url = "https://scholar.google.com.hk/scholar?hl=zh-CN&as_sdt=0%2C5&q=<keyword>";
 
-        //  Generative+adversarial+networks
-
-
-        int crawler_top_k = Config.searchTopKeyNum;
-
-        String content = FileOperation.read("config/googleKeyword.txt");
-
+        String content = FileOperation.read("config/googlePaper.txt");
 
         String []lines = content.split("\n");
-
-
-
 
         html.setEncode("utf-8");
         String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36 QIHU 360SE";
@@ -55,7 +45,6 @@ public class ScholarCiteStartMain {
                 continue;
             }
 
-            List<GooglePaperData> list = new ArrayList<>();
             logger.info("title:"+searchKeyword);
             String url = entrance_url.replace("<keyword>",searchKeyword.replace("  "," ").replace(" ","+"));
 
@@ -71,8 +60,10 @@ public class ScholarCiteStartMain {
             String htmlContent = html.getContent();
 
             DocumentFragment node = DomTree.getNode(htmlContent, html.getEncode());
-
+            List<GooglePaperData> list = new ArrayList<>();
             GooglePaperData data = new GooglePaperData();
+
+            extractPaperInfoList(data, node, GoogleScholarXpath.paperInfo);
             extractAuthor(data, node, GoogleScholarXpath.authors);
             extractPubYear(data, node, GoogleScholarXpath.pubYear);
             extractTitle(data, node, GoogleScholarXpath.title);
@@ -91,7 +82,14 @@ public class ScholarCiteStartMain {
 
 
 
-
+    private static void extractPaperInfoList(GooglePaperData data,DocumentFragment node,String xpath){
+        NodeList nl = DomTree.commonList(xpath, node);
+        for(int i=0;i<nl.getLength();i++) {
+            String itemContent = nl.item(i).getTextContent();
+            data.setPaperInfo(itemContent.trim());
+            break;
+        }
+    }
 
 
 
@@ -99,14 +97,13 @@ public class ScholarCiteStartMain {
         NodeList nl = DomTree.commonList(xpath, node);
         for(int i=0;i<nl.getLength();i++) {
             String itemContent = nl.item(i).getTextContent();
-
             if(data.getPaperInfo().contains(itemContent)) {
                 if(itemContent.contains("-")){
                     itemContent = itemContent.split("-")[0];
                 }
-
                 data.setAuthors(itemContent.trim());
             }
+            break;
         }
     }
 
@@ -114,12 +111,12 @@ public class ScholarCiteStartMain {
         NodeList nl = DomTree.commonList(xpath, node);
         for(int i=0;i<nl.getLength();i++) {
             String itemContent = nl.item(i).getTextContent();
-
             if(data.getPaperInfo().contains(itemContent)) {
                 String yearStr = StringUtil.extractOne(itemContent,"(19|20)\\d{2}");
                 data.setPubYear(Integer.parseInt(yearStr.trim()));
 
             }
+            break;
         }
     }
 
@@ -128,8 +125,6 @@ public class ScholarCiteStartMain {
         NodeList nl = DomTree.commonList(xpath, node);
         for(int i=0;i<nl.getLength();i++) {
             String itemContent = nl.item(i).getTextContent();
-
-
             if(data.getPaperInfo().contains(itemContent)) {
                 if(itemContent.contains("] ")){
                     itemContent=itemContent.split("] ")[1];
@@ -138,6 +133,7 @@ public class ScholarCiteStartMain {
 
             }
             data.setTitle(itemContent);
+            break;
         }
     }
 
@@ -149,12 +145,13 @@ public class ScholarCiteStartMain {
             String citeNum = StringUtil.extractOne(itemContent,"\\d*\\d");
             data.setCiteNum(Integer.parseInt(citeNum));
             data.setCiteNumUrl("https://scholar.google.com.hk"+citeUrl);
+            break;
         }
     }
 
 
 
-    private static void extractYearsCite(GooglePaperData data,DocumentFragment node,String xpath){
+    private static void extractYearsCite(GooglePaperData data,DocumentFragment node,String xpath) throws Exception{
 
         if(data.getCiteNum()<=0)return ;
         final String cite_url = "https://scholar.google.com.hk/scholar?" +
@@ -169,6 +166,13 @@ public class ScholarCiteStartMain {
             logger.info("data.getCiteNumUrl(),  error");
             return ;
         }
+
+        if(startYear<1900){
+            logger.info("startYear error:"+startYear);
+            return ;
+        }
+
+
         String cite_id  =data.getCiteNumUrl().split("cites=")[1].split("&")[0];
 
         SimpleHttp http = new SimpleHttp();
@@ -177,14 +181,21 @@ public class ScholarCiteStartMain {
         int total = data.getCiteNum();
 
         String yearCite = "";
+
+        logger.info("curr startYear:"+startYear);
+        logger.info("curr endYear"+endYear);
         for(int year=startYear;year<=endYear;++year){
+            logger.info("curr year:"+year);
             String url = cite_url.replace("<cite_id>",cite_id).replace("<year>",cite_id);
+            logger.info("url:"+url);
             html.setOrignUrl(url);
             http.simpleGet(html);
 
             int citeNum=0;
             DocumentFragment nodeData = DomTree.getNode(html.getContent(), html.getEncode());
             NodeList nl = DomTree.commonList(xpath, node);
+
+
 
             for(int i=0;i<nl.getLength();i++) {
                 String itemContent = nl.item(i).getTextContent();
@@ -198,11 +209,10 @@ public class ScholarCiteStartMain {
             }
             total-=citeNum;
             yearCite += year+"="+citeNum+",";
-
             if(total<=0){
                 break;
             }
-
+            Thread.sleep(1000*20);
         }
         data.setYearsCite(yearCite);
     }

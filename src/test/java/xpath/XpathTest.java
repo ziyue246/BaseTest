@@ -301,6 +301,8 @@ public class XpathTest {
 		xpath = "//DIV[@class='gs_fl']//A[contains(@href,'cites=')]";
 
 		xpath = "//DIV[@id='gs_ab_md']/DIV[@class='gs_ab_mdw']";
+		xpath = "//DIV[@class='gs_a']";
+
 		NodeList nl = DomTree.commonList(xpath, node);
 
 
@@ -313,7 +315,7 @@ public class XpathTest {
 //			String citeNum = StringUtil.extractOne(item,"\\d*\\d");
 
 			System.out.println((i+1)+":"+item);
-			System.out.println((i+1)+":"+item.trim().split(" ")[1]);
+
 //			System.out.println((i+1)+":"+itemhref);
 //			System.out.println((i+1)+":"+citeNum);
 
