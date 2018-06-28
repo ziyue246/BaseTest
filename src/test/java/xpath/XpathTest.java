@@ -299,6 +299,8 @@ public class XpathTest {
 		xpath = "//DIV[@class='gs_a']/A|//DIV[@class='gs_a']/A/@href";
 		xpath = "//DIV[@class='gs_a']/A";
 		xpath = "//DIV[@class='gs_fl']//A[contains(@href,'cites=')]";
+
+		xpath = "//DIV[@id='gs_ab_md']/DIV[@class='gs_ab_mdw']";
 		NodeList nl = DomTree.commonList(xpath, node);
 
 
@@ -306,11 +308,12 @@ public class XpathTest {
 		for(int i=0;i<nl.getLength();i++){
 			String item = nl.item(i).getTextContent();
 
-			String itemhref = nl.item(i).getAttributes().getNamedItem("href").getTextContent();
-			//String year = StringUtil.extractOne(item,"(19|20)\\d{2}");  /
-			String citeNum = StringUtil.extractOne(item,"\\d*\\d");
+//			String itemhref = nl.item(i).getAttributes().getNamedItem("href").getTextContent();
+//			//String year = StringUtil.extractOne(item,"(19|20)\\d{2}");  /
+//			String citeNum = StringUtil.extractOne(item,"\\d*\\d");
 
-//			System.out.println((i+1)+":"+item);
+			System.out.println((i+1)+":"+item);
+			System.out.println((i+1)+":"+item.trim().split(" ")[1]);
 //			System.out.println((i+1)+":"+itemhref);
 //			System.out.println((i+1)+":"+citeNum);
 
@@ -326,6 +329,12 @@ public class XpathTest {
 
 
 
+		String sql = "The complexities of various search algorithms are " +
+				"considered in terms of time, space, and cost of solution path. " +
+				"It is known that breadth-first search requires too much space and depth-first " +
+				"search can use too much time and doesn't always find a cheapest path. A depth-first";
 
+
+		System.out.println(sql.replace("'","\\'"));
 	}
 }

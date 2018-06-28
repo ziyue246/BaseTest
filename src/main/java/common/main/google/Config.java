@@ -27,7 +27,7 @@ public class Config {
         String []lines = content.split("\n");
 
         for(String line:lines){
-            if(line.length()>3){
+            if(line.length()>3&&!line.startsWith("#")){
                 line=line.trim();
                 if(line.startsWith("mysqlHost")){
                     mysqlHost=line.split("=")[1].trim();

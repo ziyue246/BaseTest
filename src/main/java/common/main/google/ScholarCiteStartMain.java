@@ -13,7 +13,15 @@ import java.util.*;
 
 public class ScholarCiteStartMain {
 
+
     private  static Logger logger = Logger.getLogger(ScholarCiteStartMain.class);
+
+
+
+    private static SimpleHttp http = new SimpleHttp();
+
+    private static HtmlInfo html = new HtmlInfo();
+
     public static void main(String []arg) throws  Exception{
 
         Config.init();
@@ -30,9 +38,7 @@ public class ScholarCiteStartMain {
         String []lines = content.split("\n");
 
 
-        SimpleHttp http = new SimpleHttp();
 
-        HtmlInfo html = new HtmlInfo();
 
         html.setEncode("utf-8");
         String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36 QIHU 360SE";
@@ -53,17 +59,14 @@ public class ScholarCiteStartMain {
             logger.info("title:"+searchKeyword);
             String url = entrance_url.replace("<keyword>",searchKeyword.replace("  "," ").replace(" ","+"));
 
-
-
-
             logger.info("url:"+url);
             html.setOrignUrl(url);
 
-            //http.simpleGet(html);
+            http.simpleGet(html);
 
-            String path  = "C:/Users/lenovo/Desktop/1.html";
-            String htmlcontent = FileOperation.read(path);
-            html.setContent(htmlcontent);
+//            String path  = "C:/Users/lenovo/Desktop/1.html";
+//            String htmlcontent = FileOperation.read(path);
+//            html.setContent(htmlcontent);
 
             String htmlContent = html.getContent();
 
@@ -76,15 +79,9 @@ public class ScholarCiteStartMain {
             extractCiteNum(data, node, GoogleScholarXpath.citeNum);
             extractYearsCite(data, node, GoogleScholarXpath.citeNum);
             list.add(data);
-            SaveDataToSql.insertGooglePaperSearchTopK(list);
+            SaveDataToSql.insertGooglePaperYearsCite(list);
             list.clear();
             Thread.sleep(1000*30);
-
-
-
-
-
-
 
 
         }
@@ -169,19 +166,45 @@ public class ScholarCiteStartMain {
         int startYear = data.getPubYear();
         int endYear = calendar.get(Calendar.YEAR);
         if(data.getCiteNumUrl()==null||!data.getCiteNumUrl().contains("cites=")){
-
             logger.info("data.getCiteNumUrl(),  error");
             return ;
         }
         String cite_id  =data.getCiteNumUrl().split("cites=")[1].split("&")[0];
 
+        SimpleHttp http = new SimpleHttp();
 
 
+        int total = data.getCiteNum();
+
+        String yearCite = "";
         for(int year=startYear;year<=endYear;++year){
             String url = cite_url.replace("<cite_id>",cite_id).replace("<year>",cite_id);
+            html.setOrignUrl(url);
+            http.simpleGet(html);
+
+            int citeNum=0;
+            DocumentFragment nodeData = DomTree.getNode(html.getContent(), html.getEncode());
+            NodeList nl = DomTree.commonList(xpath, node);
+
+            for(int i=0;i<nl.getLength();i++) {
+                String itemContent = nl.item(i).getTextContent();
+                if(itemContent==null||!itemContent.contains(" ")){
+                    break;
+                }
+                itemContent = itemContent.trim().split(" ")[1];
+                itemContent = itemContent.replace(",","");
+                citeNum = Integer.parseInt(itemContent);
+                break;
+            }
+            total-=citeNum;
+            yearCite += year+"="+citeNum+",";
+
+            if(total<=0){
+                break;
+            }
+
         }
-
-
+        data.setYearsCite(yearCite);
     }
 
 }

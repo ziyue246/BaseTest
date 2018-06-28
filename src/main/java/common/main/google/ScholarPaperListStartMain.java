@@ -52,8 +52,8 @@ public class ScholarPaperListStartMain {
                 continue;
             }
 
-            List<GooglePaperData> list = new ArrayList<>();
-            logger.info("title:"+searchKeyword);
+
+            logger.info("searchKeyword:"+searchKeyword);
             String url = entrance_url.replace("<keyword>",searchKeyword.replace("  "," ").replace(" ","+"));
 
             int dataCount = 0;
@@ -62,20 +62,23 @@ public class ScholarPaperListStartMain {
                 logger.info("url:"+url);
                 html.setOrignUrl(url);
 
-                //http.simpleGet(html);
+                http.simpleGet(html);
 
-                String path  = "C:/Users/lenovo/Desktop/1.html";
-                String htmlcontent = FileOperation.read(path);
-                html.setContent(htmlcontent);
+//                String path  = "C:/Users/lenovo/Desktop/1.html";
+//                String htmlcontent = FileOperation.read(path);
+//                html.setContent(htmlcontent);
 
                 String htmlContent = html.getContent();
-
+                if(htmlContent==null){
+                    logger.warn("请检查代理是否正确，网络是否连通");
+                    System.exit(-1);
+                }
                 DocumentFragment node = DomTree.getNode(htmlContent, html.getEncode());
-
+                List<GooglePaperData> list = new ArrayList<>();
                 extractPaperInfoList(list, node, GoogleScholarXpath.paperInfo, dataCount);
                 extractBriefList(list, node, GoogleScholarXpath.brief);
                 extractAuthorList(list, node, GoogleScholarXpath.authors);
-                extractAuthorList(list, node, GoogleScholarXpath.authorsUrl);
+                extractAuthorUrlList(list, node, GoogleScholarXpath.authorsUrl);
                 extractPubYearList(list, node, GoogleScholarXpath.pubYear);
                 extractTitleList(list, node, GoogleScholarXpath.title);
                 url = extractNextUrl(list, node, GoogleScholarXpath.nextURL);
@@ -83,14 +86,13 @@ public class ScholarPaperListStartMain {
                     data.setSearchKeyword(searchKeyword);
                 }
                 SaveDataToSql.insertGooglePaperSearchTopK(list);
+                logger.info("save data size:"+list.size());
                 dataCount+=list.size();
-                list.clear();
                 Thread.sleep(1000*30);
             }
 
-
-
         }
+        logger.info("all search crawler top-k is over!!!");
     }
 
     private static void extractPaperInfoList(List<GooglePaperData> list,DocumentFragment node,String xpath,int baseIndex){
@@ -106,25 +108,31 @@ public class ScholarPaperListStartMain {
 
     private static void extractBriefList(List<GooglePaperData> list,DocumentFragment node,String xpath){
         NodeList nl = DomTree.commonList(xpath, node);
-        for(int i=0;i<nl.getLength();i++) {
+
+        for(int i=0;i<nl.getLength()&&i<list.size();i++) {
             String itemContent = nl.item(i).getTextContent();
-            GooglePaperData data = list.get(i);
-            if(data.getPaperInfo().contains(itemContent)) {
-                data.setBrief(itemContent.trim());
+            for(int k=i;k<list.size();k++) {
+                GooglePaperData data = list.get(k);
+                if (data.getPaperInfo().contains(itemContent)) {
+                    data.setBrief(itemContent.trim());
+                    break;
+                }
             }
         }
     }
     private static void extractAuthorList(List<GooglePaperData> list,DocumentFragment node,String xpath){
         NodeList nl = DomTree.commonList(xpath, node);
-        for(int i=0;i<nl.getLength();i++) {
+        for(int i=0;i<nl.getLength()&&i<list.size();i++) {
             String itemContent = nl.item(i).getTextContent();
-            GooglePaperData data = list.get(i);
-            if(data.getPaperInfo().contains(itemContent)) {
-                if(itemContent.contains("-")){
-                    itemContent = itemContent.split("-")[0];
+            for(int k=i;k<list.size();k++) {
+                GooglePaperData data = list.get(k);
+                if(data.getPaperInfo().contains(itemContent)) {
+                    if(itemContent.contains("-")){
+                        itemContent = itemContent.split("-")[0];
+                    }
+                    data.setAuthors(itemContent.trim());
+                    break;
                 }
-
-                data.setAuthors(itemContent.trim());
             }
         }
     }
@@ -158,29 +166,31 @@ public class ScholarPaperListStartMain {
     }
     private static void extractPubYearList(List<GooglePaperData> list,DocumentFragment node,String xpath){
         NodeList nl = DomTree.commonList(xpath, node);
-        for(int i=0;i<nl.getLength();i++) {
+        for(int i=0;i<nl.getLength()&&i<list.size();i++) {
             String itemContent = nl.item(i).getTextContent();
-            GooglePaperData data = list.get(i);
-            if(data.getPaperInfo().contains(itemContent)) {
-                String yearStr = StringUtil.extractOne(itemContent,"(19|20)\\d{2}");
-                data.setPubYear(Integer.parseInt(yearStr.trim()));
-
+            for(int k=i;k<list.size();k++) {
+                GooglePaperData data = list.get(k);
+                if (data.getPaperInfo().contains(itemContent)) {
+                    String yearStr = StringUtil.extractOne(itemContent,"(19|20)\\d{2}");
+                    data.setPubYear(Integer.parseInt(yearStr.trim()));
+                    break;
+                }
             }
         }
     }
 
     private static String extractNextUrl(List<GooglePaperData> list,DocumentFragment node,String xpath){
         NodeList nl = DomTree.commonList(xpath, node);
-        for(int i=0;i<nl.getLength();i++) {
+        for(int i=0;i<nl.getLength()&&i<list.size();i++) {
             String itemContent = nl.item(i).getTextContent();
-            return itemContent.trim();
+            String nextUrl = "https://scholar.google.com.hk"+itemContent.trim();
         }
         return null;
     }
 
     private static void extractTitleList(List<GooglePaperData> list,DocumentFragment node,String xpath){
         NodeList nl = DomTree.commonList(xpath, node);
-        for(int i=0;i<nl.getLength();i++) {
+        for(int i=0;i<nl.getLength()&&i<list.size();i++) {
             String itemContent = nl.item(i).getTextContent();
             GooglePaperData data = list.get(i);
 
