@@ -3,10 +3,12 @@
 
 程序说明
     功能2个：
-        1、谷歌学术关键字，搜索top-k 文章采集
+1、	谷歌学术关键字，搜索top-k 文章采集
+(关键字网址：https://en.m.wikipedia.org/wiki/List_of_emerging_technologies)
         入口程序：common.main.google.ScholarPaperListStartMain
 
-        2、谷歌学术历年被引采集
+2、	谷歌学术历年被引采集
+（搜索关键词，任意一个文章title）
         入口程序：common.main.google.ScholarCiteStartMain
 
     环境要求：

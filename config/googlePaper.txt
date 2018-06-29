@@ -1,2 +1,3 @@
+Deep learning in neural networks: An overview
 SimpleScalar: An infrastructure for computer system modeling
 Theano: A Python framework for fast computation of mathematical expressions

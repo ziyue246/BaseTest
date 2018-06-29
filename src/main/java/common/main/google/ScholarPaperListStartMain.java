@@ -16,16 +16,18 @@ import java.util.List;
 public class ScholarPaperListStartMain {
 
     private  static Logger logger = Logger.getLogger(ScholarPaperListStartMain.class);
+
+
+
     public static void main(String []arg) throws  Exception{
 
         Config.init();
         final String entrance_url = "https://scholar.google.com.hk/scholar?hl=zh-CN&as_sdt=0%2C5&q=<keyword>";
-        final String cite_url = "https://scholar.google.com.hk/scholar?" +
-                "hl=zh-CN&as_sdt=0%2C5&sciodt=0%2C5&cites=<cite_id>&scipsc=&as_ylo=<startYear>&as_yhi=<endYear>";
+
         //  Generative+adversarial+networks
 
 
-        int crawler_top_k = Config.searchTopKeyNum;
+        int crawler_top_k = Config.searchTopKeyNum;//top k
 
         String content = FileOperation.read("config/googleKeyword.txt");
 
@@ -41,14 +43,14 @@ public class ScholarPaperListStartMain {
         String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36 QIHU 360SE";
         html.setUa(ua);
 
-        html.setProxy(Config.httpProxy);
+        html.setProxy(Config.httpProxy); //设置代理
 
 
         for(String line : lines){
 
             String searchKeyword  = line.trim();
 
-            if(searchKeyword.length()<5){
+            if(searchKeyword.startsWith("#")||searchKeyword.length()<=1){
                 continue;
             }
 
@@ -62,33 +64,38 @@ public class ScholarPaperListStartMain {
                 logger.info("url:"+url);
                 html.setOrignUrl(url);
 
-                http.simpleGet(html);
+                http.simpleGet(html);  //请求数据
 
 //                String path  = "C:/Users/lenovo/Desktop/1.html";
 //                String htmlcontent = FileOperation.read(path);
 //                html.setContent(htmlcontent);
 
-                String htmlContent = html.getContent();
+                String htmlContent = html.getContent();//http请求获取的数据
                 if(htmlContent==null){
                     logger.warn("请检查代理是否正确，网络是否连通");
                     System.exit(-1);
                 }
                 DocumentFragment node = DomTree.getNode(htmlContent, html.getEncode());
                 List<GooglePaperData> list = new ArrayList<>();
+
                 extractPaperInfoList(list, node, GoogleScholarXpath.paperInfo, dataCount);
                 extractBriefList(list, node, GoogleScholarXpath.brief);
                 extractAuthorList(list, node, GoogleScholarXpath.authors);
                 extractAuthorUrlList(list, node, GoogleScholarXpath.authorsUrl);
                 extractPubYearList(list, node, GoogleScholarXpath.pubYear);
                 extractTitleList(list, node, GoogleScholarXpath.title);
+
+                //extractUrlList(list, node, GoogleScholarXpath.url);
+
                 url = extractNextUrl(list, node, GoogleScholarXpath.nextURL);
                 for(GooglePaperData data:list){
                     data.setSearchKeyword(searchKeyword);
+                    //data.setMd5("    ");生成md5
                 }
                 SaveDataToSql.insertGooglePaperSearchTopK(list);
                 logger.info("save data size:"+list.size());
                 dataCount+=list.size();
-                Thread.sleep(1000*30);
+                Thread.sleep(1000*30);  //sleep 30s
             }
 
         }

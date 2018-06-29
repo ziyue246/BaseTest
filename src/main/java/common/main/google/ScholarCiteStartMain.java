@@ -39,14 +39,14 @@ public class ScholarCiteStartMain {
 
         for(String line : lines){
 
-            String searchKeyword  = line.trim();
+            String paperTitle  = line.trim();
 
-            if(searchKeyword.length()<5){
+            if(paperTitle.startsWith("#")||paperTitle.length()<=5){
                 continue;
             }
 
-            logger.info("title:"+searchKeyword);
-            String url = entrance_url.replace("<keyword>",searchKeyword.replace("  "," ").replace(" ","+"));
+            logger.info("title:"+paperTitle);
+            String url = entrance_url.replace("<keyword>",paperTitle.replace("  "," ").replace(" ","+"));
 
             logger.info("url:"+url);
             html.setOrignUrl(url);
@@ -68,7 +68,7 @@ public class ScholarCiteStartMain {
             extractPubYear(data, node, GoogleScholarXpath.pubYear);
             extractTitle(data, node, GoogleScholarXpath.title);
             extractCiteNum(data, node, GoogleScholarXpath.citeNum);
-            extractYearsCite(data, node, GoogleScholarXpath.citeNum);
+            extractYearsCite(data, node, GoogleScholarXpath.yearsCite);
             list.add(data);
             SaveDataToSql.insertGooglePaperYearsCite(list);
             list.clear();
@@ -183,17 +183,17 @@ public class ScholarCiteStartMain {
         String yearCite = "";
 
         logger.info("curr startYear:"+startYear);
-        logger.info("curr endYear"+endYear);
-        for(int year=startYear;year<=endYear;++year){
+        logger.info("curr endYear:"+endYear);
+        for(int year=startYear-1;year<=endYear;++year){
             logger.info("curr year:"+year);
-            String url = cite_url.replace("<cite_id>",cite_id).replace("<year>",cite_id);
+            String url = cite_url.replace("<cite_id>",cite_id).replace("<year>",year+"");
             logger.info("url:"+url);
             html.setOrignUrl(url);
             http.simpleGet(html);
 
             int citeNum=0;
             DocumentFragment nodeData = DomTree.getNode(html.getContent(), html.getEncode());
-            NodeList nl = DomTree.commonList(xpath, node);
+            NodeList nl = DomTree.commonList(xpath, nodeData);
 
 
 

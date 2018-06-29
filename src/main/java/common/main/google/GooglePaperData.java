@@ -7,15 +7,16 @@ public class GooglePaperData {
     private int orderId;
 
     private String title;
+    private String url;  //  title url ,内容页url
     private String authors;
-    private String authorsUrl;
+    private String authorsUrl; //authorName1,authorUrl1;authorName2,authorUrl2;
 
-    private String authorsIndexH;
+    private String authorsIndexH; //author index-h
 
     private String brief;
     private int pubYear;
-    private String searchKeyword;
-    private String paperInfo;
+    private String searchKeyword;   //
+    private String paperInfo;       //
     private String yearsCite;// example : 2015:20;2016:18;2017:22;2018:16
     private int citeNum;
     private String citeNumUrl;

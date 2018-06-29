@@ -6,12 +6,12 @@ public class Config {
 
 
 
-    public static int searchTopKeyNum=30;
-    public static String httpProxy="127.0.0.1:9666";
-    public static String mysqlHost="192.168.3.78:3306";
-    public static String mysqlDatabaseName="junkewei";
-    public static String mysqlUserName="pxqb";
-    public static String mysqlPassword="1!p@ssword";
+    public static int searchTopKeyNum=30;   // top-k
+    public static String httpProxy="127.0.0.1:9666";   //
+    public static String mysqlHost="192.168.3.78:3306";  //
+    public static String mysqlDatabaseName="junkewei";   //
+    public static String mysqlUserName="pxqb";           //
+    public static String mysqlPassword="1!p@";     //
 
 
 //    searchTopKeyNum=30
