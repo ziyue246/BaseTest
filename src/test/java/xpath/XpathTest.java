@@ -273,35 +273,17 @@ public class XpathTest {
 	public void testMian_jinritoutiao(){
 
 
-		String path  = "C:/Users/lenovo/Desktop/1.html";
+		String path  = "C:/Users/Administrator/Desktop/1.html";
 		String content = FileOperation.read(path);
 
 
 		String xpathContent = "//DIV[contains(@class,'content')]//P|"
 				+ "//ARTICLE//P|//DIV[contains(@id,'ext')]//P|" + "//FIGURE/FIGCAPTION";
-		DocumentFragment node = DomTree.getNode(content, "utf-8");
+		DocumentFragment node = DomTree.getNode(content, "gbk");
 
 		String xpath = "//TBODY/TR//TH//A[@class='s xst']/@href";//"//DIV/P";
 
-		xpath="//DIV[@class='sourinfo']/P/A[contains(.,'20')][contains(.,'10')]";
-
-		xpath="//DIV[@class='sourinfo']/P/A[contains(.,'20')][contains(.,'10')]";
-
-
-		xpath = "//DIV[@class='gs_rs']";  //href cites=
-		xpath = "//DIV[@class='gs_fl']//A[contains(@href,'cites=')]";
-		//xpath="//DIV[@class='gs_r gs_or gs_scl']";
-		//		//<div class="gs_r gs_or gs_scl"
-		//<div class="gs_rs">
-
-		xpath = "//TR[@align='center']//TD[@align='left']/A/@href";
-		xpath = "//H3[@class='gs_rt']";//lass="gs_rt"
-		xpath = "//DIV[@class='gs_a']/A|//DIV[@class='gs_a']/A/@href";
-		xpath = "//DIV[@class='gs_a']/A";
-		xpath = "//DIV[@class='gs_fl']//A[contains(@href,'cites=')]";
-
-		xpath = "//DIV[@id='gs_ab_md']/DIV[@class='gs_ab_mdw']";
-		xpath = "//DIV[@class='gs_a']";
+		xpath = "//DIV[@class='comment-item'][20]//P";
 
 		NodeList nl = DomTree.commonList(xpath, node);
 
@@ -310,18 +292,9 @@ public class XpathTest {
 		for(int i=0;i<nl.getLength();i++){
 			String item = nl.item(i).getTextContent();
 
-//			String itemhref = nl.item(i).getAttributes().getNamedItem("href").getTextContent();
-//			//String year = StringUtil.extractOne(item,"(19|20)\\d{2}");  /
-//			String citeNum = StringUtil.extractOne(item,"\\d*\\d");
 
 			System.out.println((i+1)+":"+item);
 
-//			System.out.println((i+1)+":"+itemhref);
-//			System.out.println((i+1)+":"+citeNum);
-
-			//System.out.println(item);
-			//System.out.println(year);
-			//System.out.println(citeNum);
 
 		}
 		Calendar calendar = Calendar.getInstance();
@@ -338,5 +311,7 @@ public class XpathTest {
 
 
 		System.out.println(sql.replace("'","\\'"));
+
+		System.out.println("123:"+"123".substring(0,1));
 	}
 }

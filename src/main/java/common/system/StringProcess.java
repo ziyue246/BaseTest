@@ -27,6 +27,8 @@ public class StringProcess {
         //String line = "http://www11.drugfuture.com/cnpat/SecurePdf.aspx";
         //  String pattern = "http://www(\\d*).drugfuture.com/cnpat/SecurePdf.aspx";
         // 创建 Pattern 对象
+
+        if(content==null||content.length()<=0)return content;
         Pattern r = Pattern.compile(pattern);
         // 现在创建 matcher 对象
         Matcher m = r.matcher(content);

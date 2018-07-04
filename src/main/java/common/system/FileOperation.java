@@ -2,10 +2,15 @@ package common.system;
 
 
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 
 public class FileOperation {
 
+
+
+    private static Logger logger = Logger.getLogger(FileOperation.class);
 	public static void renameFile(String path,String oldname,String newname){
         synchronized(FileOperation.class) {
             if (!oldname.equals(newname)) {//新的文件名和以前文件名不同时,才有必要进行重命名
@@ -70,7 +75,7 @@ public class FileOperation {
 	public static String read(String fileName) {
         synchronized(FileOperation.class) {
             if (!(new File(fileName).exists())) {
-                SystemCommon.printLog("文件不存在");
+                logger.info("file is not exist");
                 return null;
             }
             try {
