@@ -46,8 +46,20 @@ public class Douban {
         final String url_model= "https://movie.douban.com/subject/<movie_id>/comments?start=<page>&limit=20&sort=new_score&status=P";
         String movieIdsStr = FileOperation.read(movieIdFilePath);
         String []movieIds = movieIdsStr.split("\n");
+
+
+        boolean startMark=false;
         for(String movieId : movieIds){
-            if(movieId.startsWith("#")||movieId.length()<3)continue;
+
+
+
+            if(movieId.startsWith("#")||movieId.length()<3||!startMark){
+                if(movieId.startsWith("start")) {
+                    startMark = true;
+                }
+                continue;
+            }
+
 
 
 
@@ -132,9 +144,12 @@ public class Douban {
         for(String line : content.split("\n")){
             stringHashSet.add(line.trim());
         }
+        StringBuffer sb = new StringBuffer();
         for(String line:stringHashSet){
-            FileOperation.appendWrite(line+"\n",contentFilePath2);
+            sb.append(line+"\n");
         }
+        FileOperation.write(sb.toString(),contentFilePath2);
+        System.out.println("OVer");
     }
 
 
