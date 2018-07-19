@@ -1,0 +1,5 @@
+mysqlHost=172.18.79.3:3306
+mysqlDatabaseName=2018-05-16-junkewei
+mysqlUserName=root
+mysqlPassword=root
+httpProxy=127.0.0.1:9666

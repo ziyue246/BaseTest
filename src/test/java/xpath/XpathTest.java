@@ -2,6 +2,7 @@ package xpath;
 
 import common.http.HtmlInfo;
 import common.http.SimpleHttp;
+import common.main.researchGate.ResearchGateAuthorDataXpath;
 import common.system.FileOperation;
 import common.system.StringProcess;
 import common.utils.DomTree;
@@ -285,6 +286,10 @@ public class XpathTest {
 
 		xpath = "//DIV[@class='comment-item'][20]//P";
 
+		xpath = "//DIV[@class='js-items']/UL[@class='search-results clearfix']//DIV[@class='name']/A/@href";
+
+		xpath = ResearchGateAuthorDataXpath.skills;
+
 		NodeList nl = DomTree.commonList(xpath, node);
 
 
@@ -313,5 +318,21 @@ public class XpathTest {
 		System.out.println(sql.replace("'","\\'"));
 
 		System.out.println("123:"+"123".substring(0,1));
+
+
+		String strResult = "84,316Reads";
+		strResult = strResult.replaceAll("[a-zA-Z|,]","");
+
+		System.out.println("strResult:"+strResult);
+
+		strResult = "https://www.researchgate.net/profile/Daniel_Dajun_Zeng?_sg%5B0%5D=VTV4H2MIghmwEZeiDycsbr_KbahKCWSMPZZPFlCceR5rIxzKjUmsB334x3hJXA6ZMRbCoIHvHEJaYbdiv-Q&_sg%5B1%5D=bQYds7BOoFqI86h2UVK9JRxUTV6j4OKtyiC-8bs3AbiSYOaJcgPdItpfkRoUQaL8iWOglMC_JYVrVxaO";
+		strResult = strResult.split("profile\\/")[1].split("\\?")[0];
+		System.out.println("strResult:"+strResult);
+
+
+		System.out.println("strResult:"+"//\"count\":\"19\",".replaceAll("\"","").split("count:")[1].split(",")[0]);
+
+
+
 	}
 }

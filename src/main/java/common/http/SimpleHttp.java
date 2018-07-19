@@ -345,6 +345,12 @@ public class SimpleHttp {
 				get.setHeader("Accept-Encoding", html.getAcceptEncoding());
 			}
 
+			if(html.getHeadMap()!=null&&!html.getHeadMap().isEmpty()){
+				for( String key : html.getHeadMap().keySet()){
+					get.setHeader(key, html.getHeadMap().get(key));
+				}
+				html.getHeadMap().clear();
+			}
 			//:
 			get.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en-us;q=0.6,en;q=0.5;q=0.4");
 			if(html.getHeadMap()!=null&&html.getHeadMap().size()>0){
