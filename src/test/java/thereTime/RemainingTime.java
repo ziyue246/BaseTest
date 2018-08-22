@@ -35,7 +35,7 @@ public class RemainingTime {
 		System.out.println("rem days   :"+remDays);
 		System.out.println("rem weeks  :"+remDays/7.0);
 		System.out.println("rem months :"+remDays/30.0);
-		System.out.println("rem money  :"+remDays/30.0*13.0/36.0+"w");
+		System.out.println("rem money  :"+(remDays/30.0-1)*0.3710+"w");
 
 
 		System.out.println("rem years  :"+remDays/365.0);
