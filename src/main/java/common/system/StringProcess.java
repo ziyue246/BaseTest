@@ -8,6 +8,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 import org.apache.log4j.Logger;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -56,7 +57,16 @@ public class StringProcess {
         return list;
     }
 
-
+    public static String  urlEncode(String s){
+        if(s==null)return null;
+        if(s.length()==0)return s;
+        try {
+            return URLEncoder.encode(s, "utf-8");
+        }catch (Exception e){
+            logger.info(e.getMessage());
+        }
+        return null;
+    }
 
 
     /**
