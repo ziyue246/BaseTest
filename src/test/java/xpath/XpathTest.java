@@ -232,38 +232,36 @@ public class XpathTest {
 		DocumentFragment node = DomTree.getNode(content, "utf-8");
 		String xpath = "//DIV[@class='fb']/CITE[contains(@id,'cacheresult_info_')]";
 	    
-		//<p style="text-align: right;">
-		// <div class="totalRow">  <div class="tcPerYear"
-		//style="vertical-align:top;"
-		xpath= "//DIV[@class='tcPerYear'][@style='vertical-align:top;']|//DIV[@class='totalRow']//SPAN";
-		// <div class="create-cite-report">  <div class="summary_CitCount">
-		// <div id="view_citation_report_image_placeholder">
-
-		//		<div id="view_citation_report_image">
-		//		<div class="summary_CitCount">   <nobr>   <a
-		xpath = //"//DIV[@class='create-cite-report']
-				"//DIV[@id='view_citation_report_image']//DIV[@class='summary_CitCount']//A/@href";
-		//summary_CitCount
-
-
-
-		xpath="//DIV[@class='flex-column']/DIV[@class='card-box']/DIV[0]/DIV[contains(@style,'width')]";
-		xpath="//DIV[@class='flex-column']//DIV[@style='width: 115px;']//SPAN[@class='large-number']";
-		xpath="//DIV[@class='flex-column']//DIV[@style='width: 100px;']//SPAN[@class='large-number']";
+		//<div class="content-grid__columns--narrow">  type="button"
+		xpath="//DIV[@class='content-grid__columns--narrow']//DIV[@class='nova-o-pack__item']|" +
+				"//DIV[@class='content-grid__columns--narrow']//BUTTON[@type='button']";  //<em class="minor commafy last">
 		NodeList nl = DomTree.commonList(xpath, node);
 	    
-	    System.out.println(nl.getLength());
+	    System.out.println("nl.getLength():"+nl.getLength());
 	    //System.out.println(nl.item(0).getTextContent());
-	    String result = DomTree.parserNodeByXpathGetString(node, xpath,"##");
-		System.out.println(result);
-		    
-	    
-		result = DomTree.parserNodeByXpathGetIndexContent(node, xpath,0);
+	    String result = DomTree.parserNodeByXpathGetString(node, xpath,"");
+		//Reads7,264Recommendations9Followers32Citations93
+
 		System.out.println(result);
 
+		// <div class="nova-e-text nova-e-text--size-m nova-e-text--family-sans-serif nova-e-text--spacing-none nova-e-text--color-inherit nova-c-nav__item-label">
+
+		xpath = "//DIV[@class='nova-e-text nova-e-text--size-m nova-e-text--family-sans-serif nova-e-text--spacing-none nova-e-text--color-inherit nova-c-nav__item-label']";
+
+		nl = DomTree.commonList(xpath, node);
+		result = DomTree.parserNodeByXpathGetString(node, xpath,"##");
+		//Overview##Comments (1)##Citations (93)##References (55)##Related research (10+)##Public Full-text (1)
+		System.out.println(result);
 
 
+		xpath = "//SPAN/A[@class='nova-e-link nova-e-link--color-inherit nova-e-link--theme-bare research-detail-author'][contains(@href,'profile')]/@href";
+		nl = DomTree.commonList(xpath, node);
+		result = DomTree.parserNodeByXpathGetString(node, xpath,"\n");
+		//profile/Young-Jin_Cha?_sg=uMtx61daZ721D7VUqGD98ZYPmNo0Y4xXF6rnsYzmD-BNk_zgYVgz3ME1vfKy0NjObFGd2o0.KGtGRqGoW450vxRmNJuy9qyegrBErEpXxRBEnMK3Cj8HP5a4bAQofP4e0b0OxKPnRxcGnKf61vvUHhsD2CirjQ
+		System.out.println("\n\n\nresult");
+		System.out.println(result);
 	}
+
 
 
 //\{.*?\}
