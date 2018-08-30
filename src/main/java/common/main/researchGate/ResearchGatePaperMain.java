@@ -16,8 +16,6 @@ public class ResearchGatePaperMain {
 
     private  static Logger logger = Logger.getLogger(ResearchGatePaperMain.class);
 
-
-
     public static void main(String []arg) throws  Exception{
 
         Config.init();
@@ -25,30 +23,31 @@ public class ResearchGatePaperMain {
                 = "https://www.researchgate.net/search.Search.html?query=<doi>";
         //10.1109%2FTVT.2016.2594706
 
-        //Map<String,Integer> authorsMap = SaveDataToSql.getRgAuthorDatas();
+        SimpleHttp http = new SimpleHttp();
+
+        HtmlInfo html = new HtmlInfo();
+
+        html.setEncode("utf-8");
+        String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36 QIHU 360SE";
+        html.setUa(ua);
+
+        html.setHost("www.researchgate.net");
+        html.setReferUrl("https://www.researchgate.net/profile/Zhiyuan_Ren8");
+        html.getHeadMap().put("Accept-Encoding", "gzip, deflate, sdch, br");
+        html.getHeadMap().put("Accept-Language", "zh-CN,zh;q=0.8");
+        html.getHeadMap().put("Connection", "keep-alive");
+        html.getHeadMap().put("Upgrade-Insecure-Requests", "1");
+        html.getHeadMap().put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+        String cookie = "__gads=ID=4e445c7f6cbbcf2d:T=1516689105:S=ALNI_MadYHLx1rnTU4tG6OC93JDuzoTDHA; classification=nonResearcher; _mkto_trk=id:931-FMK-151&token:_mch-researchgate.net-1531712002250-67718; cookieconsent_dismissed=true; sid=9b1oQAuuQgiuQLTcuSviwAUntALa6Hx3wq7HiXVxlZPEV0MIKdjUf0GoQqdEwRmTXFeuyreg3kEa7NmONR0p8FdHmQ1ZLxtbPgmfp3qDLsWurMEgPPu7EiwM4vHns1K3; cili=_2_Y2Q5M2RlN2EyMzZiZjUzMjMxNDkxNWExNzIyOTc0ODRmMGQ2OTUxNWE1MGIyNGU3OTdjNjQ0YTE0YjFjNWUzNl8xODY2OTI5Njsw; cirgu=_1_H5u93v3Rv%2BAQmv1BsUaj%2Bt5YZxycf%2FkjxnKNVRABKQ90y1D82gbIEw8t7YUYnMBcF3rniA%3D%3D; did=h6FGDAQUUDF5PvjCL02Yu2lIn6OjUJvzst9gzhfCoLv5AIGWg0DtLwrw8XRIXI0c; pl=LgAxLGPDa6pHTAQM7D0dKaiOa24GEVW0kC7sIQh8IJGLzKPjqrSpiVinFp6VRZhEse870f5snHlj8Bjy4iiuMeXo5qiQt9V9Tr01zfOE7UZJ2dXCTJ0YfKAW06o551VC; ptc=RG1.2353551659361274694.1516689070; _ga=GA1.2.1459405830.1516689073; _gid=GA1.2.2073943948.1535350239; _gat_UA-58591210-1=1";
+        cookie = "__gads=ID=4e445c7f6cbbcf2d:T=1516689105:S=ALNI_MadYHLx1rnTU4tG6OC93JDuzoTDHA; classification=nonResearcher; _mkto_trk=id:931-FMK-151&token:_mch-researchgate.net-1531712002250-67718; cookieconsent_dismissed=true; sid=CyEzLIQ1V1mQlOYVHXwPPKXsx46rtxb1ABbW25RKHv05tyEv6AfnoXujfQ6iivolt18y8OOIfpuQssV62oLBCe2BMexplja7GHOUgpukeK0mZrwAOwk623rPf1skaB32; cili=_2_ZDdmMmVmYjM1ODc0NGYwMTU4OTViNTc1MGQyZDM5YWVlNzNhMzhjYWRjN2JmN2I1OTUxNzdhZWFjZjQ1MzViYl8xODY2OTI5Njsw; cirgu=_1_btVhyHs%2BIaF34iAobmKb3orqwU%2FsAXb9wkzrydTjMiVmB0%2FyTya2efghZK7UzVD86csJuA%3D%3D; did=h6FGDAQUUDF5PvjCL02Yu2lIn6OjUJvzst9gzhfCoLv5AIGWg0DtLwrw8XRIXI0c; pl=LgAxLGPDa6pHTAQM7D0dKaiOa24GEVW0kC7sIQh8IJGLzKPjqrSpiVinFp6VRZhEse870f5snHlj8Bjy4iiuMeXo5qiQt9V9Tr01zfOE7UZJ2dXCTJ0YfKAW06o551VC; ptc=RG1.2353551659361274694.1516689070; _gat=1; _gat_UA-58591210-1=1; _ga=GA1.2.1459405830.1516689073; _gid=GA1.2.2073943948.1535350239";
+        html.setCookie(cookie);
         while(true) {
             try {
                 List<ResearchGatePaperData> list = SaveDataToSql.getPaperDatas();
-                if (list.size() == 0) break;
-
-                SimpleHttp http = new SimpleHttp();
-
-                HtmlInfo html = new HtmlInfo();
-
-                html.setEncode("utf-8");
-                String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36 QIHU 360SE";
-                html.setUa(ua);
-
-                html.setHost("www.researchgate.net");
-                html.setReferUrl("https://www.researchgate.net/profile/Zhiyuan_Ren8");
-                html.getHeadMap().put("Accept-Encoding", "gzip, deflate, sdch, br");
-                html.getHeadMap().put("Accept-Language", "zh-CN,zh;q=0.8");
-                html.getHeadMap().put("Connection", "keep-alive");
-                html.getHeadMap().put("Upgrade-Insecure-Requests", "1");
-                html.getHeadMap().put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-                String cookie = "__gads=ID=4e445c7f6cbbcf2d:T=1516689105:S=ALNI_MadYHLx1rnTU4tG6OC93JDuzoTDHA; classification=nonResearcher; _mkto_trk=id:931-FMK-151&token:_mch-researchgate.net-1531712002250-67718; cookieconsent_dismissed=true; sid=9b1oQAuuQgiuQLTcuSviwAUntALa6Hx3wq7HiXVxlZPEV0MIKdjUf0GoQqdEwRmTXFeuyreg3kEa7NmONR0p8FdHmQ1ZLxtbPgmfp3qDLsWurMEgPPu7EiwM4vHns1K3; cili=_2_Y2Q5M2RlN2EyMzZiZjUzMjMxNDkxNWExNzIyOTc0ODRmMGQ2OTUxNWE1MGIyNGU3OTdjNjQ0YTE0YjFjNWUzNl8xODY2OTI5Njsw; cirgu=_1_H5u93v3Rv%2BAQmv1BsUaj%2Bt5YZxycf%2FkjxnKNVRABKQ90y1D82gbIEw8t7YUYnMBcF3rniA%3D%3D; did=h6FGDAQUUDF5PvjCL02Yu2lIn6OjUJvzst9gzhfCoLv5AIGWg0DtLwrw8XRIXI0c; pl=LgAxLGPDa6pHTAQM7D0dKaiOa24GEVW0kC7sIQh8IJGLzKPjqrSpiVinFp6VRZhEse870f5snHlj8Bjy4iiuMeXo5qiQt9V9Tr01zfOE7UZJ2dXCTJ0YfKAW06o551VC; ptc=RG1.2353551659361274694.1516689070; _ga=GA1.2.1459405830.1516689073; _gid=GA1.2.2073943948.1535350239; _gat_UA-58591210-1=1";
-                cookie = "__gads=ID=4e445c7f6cbbcf2d:T=1516689105:S=ALNI_MadYHLx1rnTU4tG6OC93JDuzoTDHA; classification=nonResearcher; _mkto_trk=id:931-FMK-151&token:_mch-researchgate.net-1531712002250-67718; cookieconsent_dismissed=true; sid=CyEzLIQ1V1mQlOYVHXwPPKXsx46rtxb1ABbW25RKHv05tyEv6AfnoXujfQ6iivolt18y8OOIfpuQssV62oLBCe2BMexplja7GHOUgpukeK0mZrwAOwk623rPf1skaB32; cili=_2_ZDdmMmVmYjM1ODc0NGYwMTU4OTViNTc1MGQyZDM5YWVlNzNhMzhjYWRjN2JmN2I1OTUxNzdhZWFjZjQ1MzViYl8xODY2OTI5Njsw; cirgu=_1_btVhyHs%2BIaF34iAobmKb3orqwU%2FsAXb9wkzrydTjMiVmB0%2FyTya2efghZK7UzVD86csJuA%3D%3D; did=h6FGDAQUUDF5PvjCL02Yu2lIn6OjUJvzst9gzhfCoLv5AIGWg0DtLwrw8XRIXI0c; pl=LgAxLGPDa6pHTAQM7D0dKaiOa24GEVW0kC7sIQh8IJGLzKPjqrSpiVinFp6VRZhEse870f5snHlj8Bjy4iiuMeXo5qiQt9V9Tr01zfOE7UZJ2dXCTJ0YfKAW06o551VC; ptc=RG1.2353551659361274694.1516689070; _gat=1; _gat_UA-58591210-1=1; _ga=GA1.2.1459405830.1516689073; _gid=GA1.2.2073943948.1535350239";
-                html.setCookie(cookie);
+                if (list.size() == 0) {
+                    logger.info("crawler over");
+                    break;
+                }
 
 
                 for (ResearchGatePaperData data : list) {
@@ -79,9 +78,11 @@ public class ResearchGatePaperMain {
                         htmlContent = html.getContent();//http请求获取的数据
                         if (htmlContent == null) {
                             logger.warn("please check your net");
-                            Thread.sleep(1000 * 120);
+                            data.setRg_update(-1);
+                            SaveDataToSql.updateResearchGateData(data);
+                            logger.warn("updateResearchGateData  setRg_update -1");
+                            Thread.sleep(1000 * 30);
                             continue;
-
                         }
                     }
                     DocumentFragment node = DomTree.getNode(htmlContent, html.getEncode());
@@ -100,7 +101,7 @@ public class ResearchGatePaperMain {
                     logger.info("Comments_rg    :" + data.getComments_rg());
                     logger.info("RelatedResearch_rg:" + data.getRelatedResearch_rg());
                     logger.info("\n");
-                    Thread.sleep(1000 * 25);  //sleep 30s
+                    Thread.sleep(1000 * 30);  //sleep 30s
 
 
                 }
