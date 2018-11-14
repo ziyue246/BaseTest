@@ -2,7 +2,7 @@ package common.main.google;
 
 import common.http.HtmlInfo;
 import common.http.SimpleHttp;
-import common.system.EnAnalysis;
+import common.analysis.EnAnalysis;
 import common.system.FileOperation;
 import common.utils.DomTree;
 import common.utils.StringUtil;

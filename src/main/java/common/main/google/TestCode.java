@@ -1,6 +1,6 @@
 package common.main.google;
 
-import common.system.EnAnalysis;
+import common.analysis.EnAnalysis;
 import org.junit.Test;
 
 /**
